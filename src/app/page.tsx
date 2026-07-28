@@ -128,6 +128,7 @@ export default function RootPage() {
         <nav className="support-text flex items-center justify-between gap-4 text-[10px] md:text-xs uppercase tracking-[0.28em] text-white/60">
           <span>Sonu Thakur</span>
           <span className="hidden md:block">Computing Graduate with #1 University Topper // London, UK</span>
+          <span className="md:hidden tracking-[0.14em]">#1 University Topper // London, UK</span>
           <a href="mailto:badshasonu020@gmail.com" className="hover:text-[var(--gold)] transition-colors">Contact</a>
         </nav>
 

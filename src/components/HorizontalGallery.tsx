@@ -106,9 +106,9 @@ export default function HorizontalGallery() {
         {projects.map((project, i) => (
           <article
             key={project.title}
-            className="gallery-panel h-full w-screen flex flex-col justify-center px-6 md:px-24 flex-shrink-0 max-md:h-auto max-md:py-6"
+            className="gallery-panel h-full w-screen flex flex-col justify-center px-6 md:px-12 flex-shrink-0 max-md:h-auto max-md:py-6"
           >
-            <div className="max-w-[980px] glass-panel rounded-[2rem] md:rounded-[3rem] p-7 md:p-12">
+            <div className="w-full max-w-[1180px] mx-auto glass-panel rounded-[2rem] md:rounded-[3rem] p-7 md:p-12">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
                 <span className="font-sans text-[10px] md:text-xs uppercase tracking-[0.32em] text-[var(--accent-soft)]">
                   [{String(i + 1).padStart(2, "0")}] — {project.category}
