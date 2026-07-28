@@ -1,0 +1,4 @@
+# Keep Vercel uploads lean — exclude files that aren't part of the Next.js app.
+# The .github/ folder is foreign boilerplate copied from another repo and is
+# not part of this portfolio's build.
+.github

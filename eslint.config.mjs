@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored / unrelated content that is not part of the app source:
+    ".github/**",
+    "public/**",
   ]),
 ]);
 
