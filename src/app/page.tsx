@@ -168,7 +168,7 @@ export default function RootPage() {
             </p>
             <div className="support-text glass-panel rounded-3xl p-5">
               <p className="text-[10px] uppercase tracking-[0.28em] text-white/60 mb-3">Professional signal</p>
-              <p className="font-display text-2xl leading-none tracking-[-0.05em] text-[var(--gold)]">Adaptable learner. Evidence-led builder.</p>
+              <p className="font-display text-2xl leading-none tracking-[-0.05em] text-[var(--gold)]">Adaptable learner. <br/>Evidence-led builder.</p>
             </div>
           </div>
         </div>
