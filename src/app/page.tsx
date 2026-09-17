@@ -164,7 +164,7 @@ export default function RootPage() {
               First-Class Computing Systems graduate seeking UK graduate, junior, and internship technology roles across software, cloud, data, AI, security, and product engineering.
             </p>
             <p className="support-text font-sans text-xs md:text-sm uppercase tracking-[0.2em] text-white/60 leading-relaxed">
-              Paul Hanna Award recipient<br />BSc Computing Systems — First Class<br />University of Ulster, 2025
+              Paul Hanna Award recipient<br />BSc Computing Systems — First Class<br />University of Ulster, London, 2025
             </p>
             <div className="support-text glass-panel rounded-3xl p-5">
               <p className="text-[10px] uppercase tracking-[0.28em] text-white/60 mb-3">Professional signal</p>
