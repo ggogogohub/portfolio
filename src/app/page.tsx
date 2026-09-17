@@ -128,14 +128,13 @@ export default function RootPage() {
         <nav className="support-text flex items-center justify-between gap-4 text-[10px] md:text-xs uppercase tracking-[0.28em] text-white/60">
           <span>Sonu Thakur</span>
           <span className="hidden md:block">Computing Graduate with #1 University Topper // London, UK</span>
-          <span className="md:hidden tracking-[0.14em]">#1 University Topper // London, UK</span>
           <a href="mailto:badshasonu020@gmail.com" className="hover:text-[var(--gold)] transition-colors">Contact</a>
         </nav>
 
-        <div className="mt-10 md:mt-0">
-          <h1>
+        <div className="mt-10 md:mt-0 relative">
+          <h1 className="relative z-10">
             <span className="block overflow-hidden mb-[-1.5vw]">
-              <span className="reveal-text block text-[clamp(2.75rem,16vmin,18vw)] md:text-[13.5vw] font-display leading-[0.78] tracking-[-0.075em] uppercase">
+              <span className="reveal-text block text-[clamp(3rem,17vmin,19vw)] md:text-[14vw] font-display leading-[0.75] tracking-[-0.08em] uppercase">
                 Sonu
               </span>
             </span>
@@ -145,8 +144,19 @@ export default function RootPage() {
               </span>
             </span>
           </h1>
+          <div className="absolute top-1/2 -translate-y-1/2 left-[58%] md:left-[52%] lg:left-[55%] w-[26vw] md:w-[20vw] lg:w-[16vw] hidden md:block z-20 pointer-events-none">
+            <div className="spark-frame shadow-2xl shadow-[var(--gold)]/20">
+              <img src="/me.jpg" alt="Sonu Thakur portrait" className="w-full h-auto object-cover rounded-[inherit] scale-105 hover:scale-110 transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[var(--background)]/60 via-transparent to-[var(--background)]/60 pointer-events-none" />
+            </div>
+          </div>
         </div>
 
+        <div className="md:hidden mt-8 flex justify-center">
+          <div className="spark-frame w-48 shadow-2xl shadow-[var(--gold)]/20">
+            <img src="/me.jpg" alt="Sonu Thakur portrait" className="w-full h-auto object-cover rounded-[inherit] scale-105" />
+          </div>
+        </div>
         <div>
           <div className="divider-bar w-full h-px bg-white/18 origin-left" />
           <div className="mt-7 grid md:grid-cols-[1.1fr_0.9fr_0.7fr] gap-8 md:gap-10 items-end">
