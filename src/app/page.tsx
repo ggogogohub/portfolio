@@ -218,7 +218,7 @@ export default function RootPage() {
 
       <section className="relative z-10 px-5 md:px-12 py-20 md:py-28 border-y border-white/10 bg-white/[0.025]">
         <div className="grid md:grid-cols-[0.85fr_1.15fr] gap-12 md:gap-20 items-start">
-          <div className="lift-in sticky top-10">
+          <div className="lift-in md:sticky md:top-10">
             <p className="text-[10px] md:text-xs uppercase tracking-[0.32em] text-white/60 mb-5">Role fit // not boxed into one label</p>
             <h2 className="text-[16vw] md:text-[5.8vw] font-display uppercase leading-[0.82] tracking-[-0.07em]">Open to the right first role.</h2>
           </div>
