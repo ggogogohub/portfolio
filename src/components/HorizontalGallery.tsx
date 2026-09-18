@@ -92,7 +92,7 @@ export default function HorizontalGallery() {
   return (
     <section
       ref={containerRef}
-      className="h-[100svh] w-full relative overflow-hidden flex items-center border-y border-white/10 bg-[#050505] motion-reduce:h-auto motion-reduce:overflow-visible max-md:h-auto max-md:overflow-visible max-md:py-20"
+      className="h-[100svh] w-full relative overflow-hidden flex items-center border-y border-white/10 bg-[#050505] motion-reduce:h-auto motion-reduce:overflow-visible max-md:h-auto max-md:overflow-visible max-md:py-20 overflow-x-hidden"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(255,61,0,0.18),transparent_32rem),radial-gradient(circle_at_80%_50%,rgba(125,249,255,0.08),transparent_30rem)]" />
       <div className="absolute top-8 left-6 md:left-12 pointer-events-none font-sans tracking-[0.32em] uppercase text-[10px] text-white/60">
