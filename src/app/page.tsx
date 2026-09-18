@@ -181,7 +181,7 @@ export default function RootPage() {
             Confident because the record has evidence.
           </h2>
         </div>
-        <div className="mt-14 grid md:grid-cols-3 gap-4">
+        <div className="mt-14 grid md:grid-cols-3 gap-4 items-start">
           {achievements.map(([number, title, body]) => (
             <article key={title} className="lift-in glass-panel rounded-[2rem] p-6 md:p-8 min-h-[260px] flex flex-col justify-between">
               <span className="text-xs uppercase tracking-[0.3em] text-white/60">{number}</span>
