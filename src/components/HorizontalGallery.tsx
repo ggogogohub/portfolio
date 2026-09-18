@@ -102,7 +102,7 @@ export default function HorizontalGallery() {
         Scroll to traverse
       </div>
 
-      <div ref={wrapperRef} className="relative z-10 flex h-[76svh] items-center w-[300vw] motion-reduce:w-screen motion-reduce:flex-col motion-reduce:h-auto max-md:w-screen max-md:flex-col max-md:h-auto max-md:gap-10">
+      <div ref={wrapperRef} className="relative z-10 flex h-[76svh] items-start pt-16 w-[300vw] motion-reduce:w-screen motion-reduce:flex-col motion-reduce:h-auto max-md:w-screen max-md:flex-col max-md:h-auto max-md:gap-10">
         {projects.map((project, i) => (
           <article
             key={project.title}
