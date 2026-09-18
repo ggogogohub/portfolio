@@ -134,7 +134,7 @@ export default function RootPage() {
         <div className="mt-10 md:mt-0 relative">
           <h1 className="relative z-10">
             <span className="block overflow-hidden mb-[-1.5vw]">
-              <span className="reveal-text block text-[clamp(3rem,17vmin,19vw)] md:text-[14vw] font-display leading-[0.75] tracking-[-0.08em] uppercase">
+              <span className="reveal-text block text-[clamp(3rem,17vmin,19vw)] md:text-[14vw] font-display leading-[0.85] tracking-[-0.08em] uppercase">
                 Sonu
               </span>
             </span>
