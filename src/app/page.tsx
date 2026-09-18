@@ -222,11 +222,9 @@ export default function RootPage() {
             <p className="text-[10px] md:text-xs uppercase tracking-[0.32em] text-white/60 mb-5">Role fit // not boxed into one label</p>
             <h2 className="text-[16vw] md:text-[5.8vw] font-display uppercase leading-[0.82] tracking-[-0.07em]">Open to the right first role.</h2>
           </div>
-          <div className="lift-in grid sm:grid-cols-2 gap-3">
+          <div className="lift-in flex flex-wrap gap-3">
             {roleTargets.map((role) => (
-              <div key={role} className="rounded-3xl border border-white/12 bg-black/30 px-5 py-4 text-xs md:text-sm uppercase tracking-[0.18em] text-white/62">
-                {role}
-              </div>
+              <span key={role} className="rounded-full border border-white/12 bg-black/30 px-5 py-3 text-xs md:text-sm uppercase tracking-[0.18em] text-white/62 hover:border-[var(--accent-soft)] hover:text-white transition-colors">{role}</span>
             ))}
           </div>
         </div>
