@@ -1,288 +1,392 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import HorizontalGallery from "../components/HorizontalGallery";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-// Respect the OS-level reduced-motion preference for all JS-driven motion
-// (Lenis smoothing + GSAP timelines). The CSS media query in globals.css only
-// reaches CSS animations/transitions, not GSAP/Lenis, so this gates them too.
 const prefersReducedMotion = (): boolean => {
   if (typeof window === "undefined" || !window.matchMedia) return false;
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 };
 
+/* Verified evidence — do not invent */
+const projects = [
+  {
+    title: "Nextera Workforce",
+    tag: "Employee management & scheduling",
+    repo: "https://github.com/ggogogohub/nextera-workforce.co.uk",
+    tech: ["React", "TypeScript", "FastAPI", "MongoDB", "Docker", "OR-Tools"],
+    summary: "Workforce operations system with optimization logic and scalable architecture.",
+    note: "Evidence: repo verified; backend behaviour only where repo documents it.",
+  },
+  {
+    title: "Media Gallery",
+    tag: "Cloud-native media sharing",
+    repo: "https://github.com/ggogogohub/Media-Gallery",
+    tech: ["React", "Vite", "Azure Blob Storage", "Cosmos DB", "Logic Apps"],
+    summary: "Uploading, previewing and managing images, video and audio with REST API support.",
+    note: "Signature interaction uses this project — architecture verified from repo readme.",
+  },
+  {
+    title: "eBay Used Cars",
+    tag: "Used-car listing platform",
+    repo: "https://github.com/ggogogohub/eBay-Used-Cars",
+    tech: ["Angular 17", "Flask", "MongoDB", "JWT", "Bootstrap"],
+    summary: "Authentication, advanced search and structured inventory workflows.",
+    note: "Evidence: repo verified; technologies matched to listed stack.",
+  },
+];
+
+/* Verified academic evidence */
 const achievements = [
-  ["01", "Paul Hanna Award", "Recipient of the School of Computing's Paul Hanna Award, certified by the Dean of QAHE (ULST) Limited."],
-  ["02", "First-Class BSc", "Bachelor of Science with first class honours in Computing Systems, conferred by the University of Ulster on 10 December 2025."],
-  ["03", "Broad computing record", "Strong performance across data analytics, cloud-native development, databases, networking, software process, and applied development."],
+  { num: "01", title: "Paul Hanna Award", body: "Recipient of the School of Computing's Paul Hanna Award, certified by the Dean of QAHE (ULST) Limited." },
+  { num: "02", title: "First-Class BSc", body: "Bachelor of Science with first class honours in Computing Systems, conferred by the University of Ulster (10 December 2025)." },
+  { num: "03", title: "Broad computing record", body: "Strong performance across data analytics, cloud-native development, databases, networking, software process, and applied development." },
 ];
 
-const academicSignals = [
-  ["84", "Data Analytics"],
-  ["80", "Full-stack Strategies"],
-  ["78", "Cloud Native Development"],
-  ["86", "Mathematics for Computing"],
-  ["78", "Database Systems"],
-  ["76", "Software Product & Process"],
-];
-
-const roleTargets = [
-  "Graduate Software Engineer",
-  "Junior Developer",
-  "Technology Intern",
-  "Cloud / DevOps Graduate",
-  "Data / AI Graduate",
-  "QA / Automation Engineer",
-  "Security-aware junior roles",
-  "Product-minded engineering roles",
-];
-
-const skills = [
-  "Software engineering", "Cloud-native development", "Data analytics", "AI fundamentals", "Systems security", "Computer networking", "React", "Angular 17", "TypeScript", "Python", "FastAPI", "Flask", "MongoDB", "Docker", "GitHub Actions", "Laravel", "MySQL", "Problem solving", "Team leadership"
-];
-
-const principles = [
-  ["Learn fast", "I do not need a narrow box to start contributing. I learn the domain, tools, and standards quickly, then turn them into working output."],
-  ["Build clearly", "I value readable systems, practical user flows, documented decisions, and software that can be explained under pressure."],
-  ["Stay accountable", "Academic performance matters, but I want my portfolio judged by evidence: shipped projects, measurable results, and honest growth."],
+/* Signature interaction — 4 steps explaining Media Gallery architecture */
+const signatureSteps = [
+  { label: "Upload interface", desc: "User selects and submits media through a clean React/Vite frontend." },
+  { label: "Storage", desc: "Azure Blob Storage handles scalable object storage with metadata indexing." },
+  { label: "API & metadata", desc: "Azure Logic Apps orchestrate REST flows; Cosmos DB holds structured metadata." },
+  { label: "Result", desc: "Preview and management return to the user — the system operates behind one upload." },
 ];
 
 export default function RootPage() {
   const container = useRef<HTMLDivElement>(null);
+  const [stepIndex, setStepIndex] = useState(0);
 
   useEffect(() => {
-    // Let native (instant) scroll handle reduced-motion users — no smoothing.
     if (prefersReducedMotion()) return;
-
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
-
-    // Keep ScrollTrigger in lock-step with Lenis' smoothed scrolling so the
-    // pinned horizontal gallery and scrubbed reveals track the virtual scroll.
+    const lenis = new Lenis({ duration: 1.15, easing: (t) => Math.min(1, 0.001 - Math.pow(2, -10 * t)), smoothWheel: true });
     lenis.on("scroll", ScrollTrigger.update);
-
-    // Drive Lenis from GSAP's ticker — a single rAF source per frame. Avoids
-    // the double-update (and double-speed scroll) you get when Lenis is also
-    // driven by its own requestAnimationFrame loop.
     const onTick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(onTick);
     gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      gsap.ticker.remove(onTick);
-      lenis.destroy();
-    };
+    return () => { gsap.ticker.remove(onTick); lenis.destroy(); };
   }, []);
 
-  useGSAP(
-    () => {
-      // Skip all entrance/scrub animations for reduced-motion users; the
-      // elements then render in their natural (visible) CSS state.
-      if (prefersReducedMotion()) return;
-
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-
-      tl.fromTo(
-        ".reveal-text",
-        { y: "130%", clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)" },
-        {
-          y: "0%",
-          clipPath: "polygon(0% 0%, 100% 0%, 100% 115%, 0% 115%)",
-          duration: 1.55,
-          stagger: 0.09,
-          delay: 0.15,
-        }
-      )
-        .fromTo(".divider-bar", { scaleX: 0 }, { scaleX: 1, duration: 1.35, ease: "expo.inOut" }, "-=1")
-        .fromTo(".support-text", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 1, stagger: 0.08 }, "-=0.65");
-
-      gsap.utils.toArray<HTMLElement>(".lift-in").forEach((el) => {
-        gsap.fromTo(
-          el,
-          { y: 80, opacity: 0, scale: 0.98 },
-          {
-            scrollTrigger: { trigger: el, start: "top 82%", end: "top 55%", scrub: 0.6 },
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            ease: "expo.out",
-          }
-        );
-      });
-    },
-    { scope: container }
-  );
+  useGSAP(() => {
+    if (prefersReducedMotion()) return;
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    tl.fromTo(".hero-line", { y: "110%", opacity: 0 }, { y: "0%", opacity: 1, duration: 1, stagger: 0.12, delay: 0.1 })
+      .fromTo(".hero-sub", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.5")
+      .fromTo(".hero-cta", { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.4");
+  }, { scope: container });
 
   return (
-    <main ref={container} className="relative w-full min-h-screen text-[var(--foreground)]" suppressHydrationWarning>
-      <section className="relative z-10 min-h-[100svh] w-full flex flex-col justify-between px-5 md:px-12 pt-7 pb-[8svh]">
-        <nav className="support-text flex items-center justify-between gap-4 text-[10px] md:text-xs uppercase tracking-[0.28em] text-white/60">
-          <span>Sonu Thakur</span>
-          <span className="hidden md:block">Computing Graduate with #1 University Topper // London, UK</span>
-          <a href="mailto:badshasonu020@gmail.com" className="hover:text-[var(--gold)] transition-colors">Contact</a>
+    <main ref={container} className="relative w-full bg-[var(--background)] text-[var(--foreground)]" suppressHydrationWarning>
+      {/* ===== HERO ===== */}
+      <section className="relative z-10 min-h-[92svh] md:min-h-[100svh] w-full px-6 md:px-12 lg:px-16 pt-10 md:pt-12 pb-16 md:pb-24 flex flex-col">
+        {/* Nav */}
+        <nav className="flex items-center justify-between gap-4 text-[11px] md:text-xs uppercase tracking-[0.22em] text-[var(--muted)]" aria-label="Primary">
+          <a href="#" className="font-display font-medium tracking-tight text-[var(--ink)]">Sonu Thakur</a>
+          <div className="hidden md:flex items-center gap-8">
+            <a href="#work" className="hover:text-[var(--accent)] transition-colors">Work</a>
+            <a href="#about" className="hover:text-[var(--accent)] transition-colors">About</a>
+            <a href="#contact" className="hover:text-[var(--accent)] transition-colors">Contact</a>
+          </div>
         </nav>
 
-        <div className="mt-10 md:mt-0 relative">
-          <h1 className="relative z-10">
-            <span className="block overflow-hidden mb-[-1.5vw]">
-              <span className="reveal-text block text-[clamp(3rem,17vmin,19vw)] md:text-[14vw] font-display leading-[0.85] tracking-[-0.08em] uppercase">
-                Sonu
-              </span>
-            </span>
-            <span className="block overflow-hidden">
-              <span className="reveal-text aurora-text block text-[clamp(2.5rem,15vmin,17vw)] md:text-[12.8vw] font-display leading-[0.78] tracking-[-0.075em] uppercase">
-                Thakur
-              </span>
-            </span>
-          </h1>
-          <div className="absolute top-1/2 -translate-y-1/2 left-[58%] md:left-[52%] lg:left-[55%] w-[26vw] md:w-[20vw] lg:w-[16vw] hidden md:block z-20 pointer-events-none">
-            <div className="spark-frame shadow-2xl shadow-[var(--gold)]/20">
-              <img src="/me.jpg" alt="Sonu Thakur portrait" className="w-full h-auto object-cover rounded-[inherit] scale-105 hover:scale-110 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[var(--background)]/60 via-transparent to-[var(--background)]/60 pointer-events-none" />
+        {/* Hero content: asymmetric */}
+        <div className="mt-10 md:mt-14 lg:mt-20 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
+          {/* Left: identity + value */}
+          <div className="lg:col-span-7 flex flex-col gap-6 md:gap-8 lg:pr-8">
+            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
+              <span className="inline-block w-6 h-[1px] bg-[var(--accent)]" />
+              <span>London, UK — Computing Graduate</span>
+            </div>
+
+            <h1 className="text-[clamp(3rem,14vw,9rem)] leading-[0.88] tracking-[-0.06em] font-display text-[var(--ink)]">
+              <span className="hero-line block overflow-hidden"><span className="block">Sonu</span></span>
+              <span className="hero-line block overflow-hidden"><span className="block">Thakur</span></span>
+            </h1>
+
+            <div className="max-w-xl">
+              <p className="hero-sub text-xl md:text-2xl lg:text-[1.65rem] leading-snug text-[var(--ink)] font-light tracking-[-0.02em]">
+                Complex problems.<br />
+                <span className="text-[var(--muted)]">Clear systems.</span>
+              </p>
+              <p className="hero-sub mt-3 text-base md:text-lg text-[var(--muted)] leading-relaxed max-w-md">
+                I build full-stack and cloud-native software with practical workflows and clear technical decisions.
+              </p>
+            </div>
+
+            <div className="hero-cta flex flex-wrap gap-3 mt-2">
+              <a href="#work" className="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] text-white px-6 py-3 text-sm font-medium tracking-tight hover:brightness-110 transition shadow-[0_4px_24px_rgba(107,127,94,0.25)]">
+                Explore my work
+              </a>
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-transparent text-[var(--ink)] px-6 py-3 text-sm font-medium tracking-tight hover:border-[var(--accent)] hover:text-[var(--accent)] transition">
+                Get in touch
+              </a>
             </div>
           </div>
-        </div>
 
-        <div className="md:hidden mt-8 flex justify-center">
-          <div className="spark-frame w-48 shadow-2xl shadow-[var(--gold)]/20">
-            <img src="/me.jpg" alt="Sonu Thakur portrait" className="w-full h-auto object-cover rounded-[inherit] scale-105" />
-          </div>
-        </div>
-        <div>
-          <div className="divider-bar w-full h-px bg-white/18 origin-left" />
-          <div className="mt-7 grid md:grid-cols-[1.1fr_0.9fr_0.7fr] gap-8 md:gap-10 items-end">
-            <p className="support-text font-sans text-lg md:text-2xl text-white/72 max-w-[780px] leading-snug text-balance">
-              First-Class Computing Systems graduate seeking UK graduate, junior, and internship technology roles across software, cloud, data, AI, security, and product engineering.
-            </p>
-            <p className="support-text font-sans text-xs md:text-sm uppercase tracking-[0.2em] text-white/60 leading-relaxed">
-              Paul Hanna Award recipient<br />BSc Computing Systems — First Class<br />University of Ulster, London, 2025
-            </p>
-            <div className="support-text glass-panel rounded-3xl p-5">
-              <p className="text-[10px] uppercase tracking-[0.28em] text-white/60 mb-3">Professional signal</p>
-              <p className="font-display text-2xl leading-none tracking-[-0.05em] text-[var(--gold)]">Adaptable learner. <br/>Evidence-led builder.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative z-10 px-5 md:px-12 py-24 md:py-36">
-        <div className="lift-in max-w-[1180px]">
-          <p className="text-[10px] md:text-xs uppercase tracking-[0.32em] text-[var(--accent-soft)] mb-6">Profile // built for first technology roles</p>
-          <h2 className="text-[13vw] md:text-[7vw] font-display uppercase leading-[0.86] tracking-[-0.07em] text-balance">
-            Confident because the record has evidence.
-          </h2>
-        </div>
-        <div className="mt-14 grid md:grid-cols-3 gap-4 items-start">
-          {achievements.map(([number, title, body]) => (
-            <article key={title} className="lift-in glass-panel rounded-[2rem] p-6 md:p-8 min-h-[260px] flex flex-col justify-between">
-              <span className="text-xs uppercase tracking-[0.3em] text-white/60">{number}</span>
-              <div>
-                <h3 className="font-display text-3xl md:text-4xl leading-none tracking-[-0.055em] mb-4">{title}</h3>
-                <p className="text-sm md:text-base leading-relaxed text-white/55">{body}</p>
+          {/* Right: featured visual — verified architecture diagram, not fake screenshot */}
+          <aside className="lg:col-span-5 lg:pl-4 lg:-mt-6" aria-label="Featured project visual">
+            <div className="card-surface p-6 md:p-8 shadow-[0_40px_120px_rgba(0,0,0,0.08)] relative overflow-hidden">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="step-marker" />
+                <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">Signature interaction</span>
               </div>
-            </article>
-          ))}
+              <h2 className="text-2xl md:text-3xl font-display tracking-[-0.04em] mb-3">Media Gallery</h2>
+              <p className="text-sm md:text-base text-[var(--muted)] leading-relaxed mb-6">
+                A simple upload. A system behind it. Four steps explain the verified architecture: upload interface, Azure Blob Storage, Cosmos DB + Logic Apps, and returned preview.
+              </p>
+
+              {/* Accurate SVG diagram — not decorative; shows verified flow */}
+              <svg viewBox="0 0 400 220" className="w-full h-auto" aria-label="Media Gallery architecture: upload to storage to API to result" role="img">
+                <defs>
+                  <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#6b7f5e" />
+                    <stop offset="100%" stopColor="#8aa07a" />
+                  </linearGradient>
+                </defs>
+                {/* Flow boxes */}
+                <rect x="20" y="20" width="90" height="46" rx="12" fill="var(--panel-strong)" stroke="var(--line)" strokeWidth="1" />
+                <text x="65" y="44" textAnchor="middle" fontSize="11" fontFamily="system-ui" fill="var(--ink)">Upload</text>
+                <text x="65" y="58" textAnchor="middle" fontSize="9" fontFamily="system-ui" fill="var(--muted)">UI / React</text>
+
+                <rect x="140" y="20" width="90" height="46" rx="12" fill="var(--panel-strong)" stroke="var(--line)" strokeWidth="1" />
+                <text x="185" y="44" textAnchor="middle" fontSize="11" fontFamily="system-ui" fill="var(--ink)">Storage</text>
+                <text x="185" y="58" textAnchor="middle" fontSize="9" fontFamily="system-ui" fill="var(--muted)">Azure Blob</text>
+
+                <rect x="260" y="20" width="110" height="46" rx="12" fill="var(--panel-strong)" stroke="var(--line)" strokeWidth="1" />
+                <text x="315" y="44" textAnchor="middle" fontSize="11" fontFamily="system-ui" fill="var(--ink)">API + Meta</text>
+                <text x="315" y="58" textAnchor="middle" fontSize="9" fontFamily="system-ui" fill="var(--muted)">Logic Apps / Cosmos</text>
+
+                <rect x="140" y="120" width="240" height="60" rx="14" fill="#ebe9e2" stroke="var(--accent)" strokeWidth="2" />
+                <text x="260" y="152" textAnchor="middle" fontSize="13" fontWeight="600" fontFamily="system-ui" fill="var(--ink)">Result — preview &amp; manage</text>
+                <text x="260" y="170" textAnchor="middle" fontSize="10" fontFamily="system-ui" fill="var(--muted)">Verified: React → Storage → API → User</text>
+
+                {/* Arrows */}
+                <line x1="110" y1="43" x2="140" y2="43" stroke="url(#grad1)" strokeWidth="2.5" markerEnd="url(#arrow)" />
+                <line x1="230" y1="43" x2="260" y2="43" stroke="url(#grad1)" strokeWidth="2.5" markerEnd="url(#arrow)" />
+                <line x1="315" y1="66" x2="315" y2="120" stroke="url(#grad1)" strokeWidth="2.5" markerEnd="url(#arrow)" />
+                <line x1="260" y1="120" x2="260" y2="106" stroke="url(#grad1)" strokeWidth="2.5" markerEnd="url(#arrow)" />
+
+                <defs>
+                  <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                    <polygon points="0 0, 10 3, 0 6" fill="#6b7f5e" />
+                  </marker>
+                </defs>
+              </svg>
+
+              <a href="#signature" className="inline-flex items-center gap-2 mt-5 text-sm font-medium text-[var(--accent)] hover:underline underline-offset-4">
+                Read the signature sequence →
+              </a>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section className="relative z-10 px-5 md:px-12 pb-24 md:pb-36">
-        <div className="lift-in glass-panel rounded-[2rem] md:rounded-[3rem] p-6 md:p-10">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+      {/* ===== SELECTED PROJECTS ===== */}
+      <section id="work" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28 bg-[var(--surface)] border-y border-[var(--line)]">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-start gap-4 mb-14 md:mb-20">
+            <span className="step-marker mt-1" />
             <div>
-              <p className="text-[10px] md:text-xs uppercase tracking-[0.32em] text-white/60 mb-4">Academic signals // selected module marks</p>
-              <h2 className="text-[12vw] md:text-[5vw] font-display uppercase leading-[0.84] tracking-[-0.07em]">Proof across domains.</h2>
+              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92]">Selected work.</h2>
+              <p className="mt-3 text-base md:text-lg text-[var(--muted)] max-w-lg">Verified repositories, actual technologies, honest scope. No fabricated metrics.</p>
             </div>
-            <p className="max-w-[520px] text-sm md:text-base leading-relaxed text-white/52">
-              The transcript supports a broad computing profile: analytics, cloud, databases, networking, security, software process, and applied development.
-            </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {academicSignals.map(([mark, module]) => (
-              <div key={module} className="rounded-3xl border border-white/10 bg-black/25 p-5">
-                <p className="font-display text-5xl tracking-[-0.08em] text-[var(--gold)]">{mark}</p>
-                <p className="mt-2 text-xs uppercase tracking-[0.22em] text-white/60">{module}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      <section className="relative z-10 px-5 md:px-12 py-20 md:py-28 border-y border-white/10 bg-white/[0.025]">
-        <div className="grid md:grid-cols-[0.85fr_1.15fr] gap-12 md:gap-20 items-start">
-          <div className="lift-in md:sticky md:top-10">
-            <p className="text-[10px] md:text-xs uppercase tracking-[0.32em] text-white/60 mb-5">Role fit // not boxed into one label</p>
-            <h2 className="text-[16vw] md:text-[5.8vw] font-display uppercase leading-[0.82] tracking-[-0.07em]">Open to the right first role.</h2>
-          </div>
-          <div className="lift-in flex flex-wrap gap-3">
-            {roleTargets.map((role) => (
-              <span key={role} className="rounded-full border border-white/12 bg-black/30 px-5 py-3 text-xs md:text-sm uppercase tracking-[0.18em] text-white/62 hover:border-[var(--accent-soft)] hover:text-white transition-colors">{role}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative z-10 px-5 md:px-12 py-20 md:py-28">
-        <div className="grid md:grid-cols-[0.8fr_1.2fr] gap-12 md:gap-20 items-start">
-          <div className="lift-in">
-            <p className="text-[10px] md:text-xs uppercase tracking-[0.32em] text-white/60 mb-5">Capability map // range with direction</p>
-            <h2 className="text-[16vw] md:text-[5.8vw] font-display uppercase leading-[0.82] tracking-[-0.07em]">Useful from day one.</h2>
-          </div>
-          <div className="lift-in flex flex-wrap gap-3">
-            {skills.map((skill) => (
-              <span key={skill} className="rounded-full border border-white/12 bg-black/30 px-5 py-3 text-xs md:text-sm uppercase tracking-[0.18em] text-white/62 hover:border-[var(--accent-soft)] hover:text-white transition-colors">
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <a
-        href="#after-gallery"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-[var(--gold)] focus:px-4 focus:py-2 focus:text-[10px] focus:uppercase focus:tracking-[0.22em] focus:text-black"
-      >
-        Skip project gallery
-      </a>
-      <HorizontalGallery />
-
-      <section id="after-gallery" tabIndex={-1} className="relative z-10 px-5 md:px-12 py-24 md:py-36 scroll-mt-4">
-        <div className="lift-in grid md:grid-cols-[0.9fr_1.1fr] gap-12 md:gap-20 items-start">
-          <h2 className="text-[14vw] md:text-[6.2vw] font-display uppercase leading-[0.84] tracking-[-0.075em] text-balance">
-            How I want to be judged.
-          </h2>
-          <div className="grid gap-4">
-            {principles.map(([title, body]) => (
-              <article key={title} className="glass-panel rounded-[2rem] p-6 md:p-8">
-                <h3 className="font-display text-3xl md:text-4xl tracking-[-0.055em] leading-none mb-4">{title}</h3>
-                <p className="text-white/58 text-base md:text-lg leading-relaxed">{body}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {projects.map((p) => (
+              <article key={p.title} className="group flex flex-col card-surface p-6 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]">
+                <div className="flex items-center gap-2 mb-4 text-[11px] uppercase tracking-[0.15em] text-[var(--accent)] font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+                  <span>{p.tag}</span>
+                </div>
+                <h3 className="text-xl md:text-2xl font-display tracking-[-0.03em] mb-2 group-hover:text-[var(--accent)] transition-colors">{p.title}</h3>
+                <p className="text-sm md:text-base text-[var(--muted)] leading-relaxed mb-5">{p.summary}</p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {p.tech.map((t) => (
+                    <span key={t} className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-[var(--panel-strong)] text-[var(--muted)] border border-[var(--line)]">{t}</span>
+                  ))}
+                </div>
+                <div className="mt-auto pt-4 border-t border-[var(--line)] flex items-center justify-between gap-3">
+                  <a href={p.repo} className="text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)]" rel="noopener noreferrer">View repository →</a>
+                  <span className="text-[11px] text-[var(--muted)]">{p.note}</span>
+                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <footer className="relative z-10 min-h-[100svh] w-full flex flex-col justify-center bg-[var(--accent)] text-black px-5 md:px-12 overflow-hidden">
-        <div className="absolute inset-0 opacity-15 bg-[linear-gradient(90deg,rgba(0,0,0,.4)_1px,transparent_1px),linear-gradient(rgba(0,0,0,.4)_1px,transparent_1px)] bg-[size:64px_64px]" />
-        <div className="relative z-10">
-          <p className="text-[10px] md:text-xs uppercase tracking-[0.35em] font-bold mb-7">Open to UK graduate, junior, and internship technology roles</p>
-          <h2 className="text-[16vw] md:text-[8vw] font-display font-bold tracking-[-0.08em] leading-[0.78] uppercase max-w-[1100px]">
-            Ready to contribute, learn, and grow.
-          </h2>
-          <div className="mt-14 flex flex-col md:flex-row gap-5 md:gap-10">
-            <a href="mailto:badshasonu020@gmail.com" className="font-sans text-base md:text-xl uppercase tracking-[0.22em] font-extrabold hover:text-white transition-colors">Email</a>
-            <a href="https://github.com/ggogogohub" target="_blank" rel="noreferrer" className="font-sans text-base md:text-xl uppercase tracking-[0.22em] font-extrabold hover:text-white transition-colors">GitHub</a>
-            <a href="https://linkedin.com/in/thakur-sonu" target="_blank" rel="noreferrer" className="font-sans text-base md:text-xl uppercase tracking-[0.22em] font-extrabold hover:text-white transition-colors">LinkedIn</a>
+      {/* ===== SIGNATURE INTERACTION ===== */}
+      <section id="signature" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28" aria-label="Signature interaction">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-start gap-4 mb-10 md:mb-14">
+            <span className="step-marker mt-1" />
+            <div>
+              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92]">A simple upload.<br />A system behind it.</h2>
+              <p className="mt-3 text-base md:text-lg text-[var(--muted)] max-w-xl">The Media Gallery experience explains verified architecture — not decoration. Four steps, clear purpose.</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            {/* Steps */}
+            <div className="flex flex-col gap-3" role="list" aria-label="Architecture steps">
+              {signatureSteps.map((s, i) => (
+                <button
+                  key={s.label}
+                  onClick={() => setStepIndex(i)}
+                  role="listitem"
+                  className={`text-left w-full rounded-2xl border px-6 py-5 transition ${i === stepIndex ? "bg-[var(--panel-strong)] border-[var(--accent)] shadow-[0_4px_20px_rgba(107,127,94,0.12)]" : "bg-[var(--surface)] border-[var(--line)] hover:border-[var(--accent-soft)]"}`}
+                  aria-current={i === stepIndex ? "step" : undefined}
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${i === stepIndex ? "bg-[var(--accent)] text-white" : "bg-[var(--line)] text-[var(--muted)]"}`}>{i + 1}</span>
+                    <span className={`text-sm font-medium ${i === stepIndex ? "text-[var(--ink)]" : "text-[var(--muted)]"}`}>{s.label}</span>
+                  </div>
+                  <p className="text-sm leading-relaxed text-[var(--muted)]">{s.desc}</p>
+                </button>
+              ))}
+            </div>
+
+            {/* Step visual / context */}
+            <div className="card-surface p-6 md:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.06)] h-fit">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-8 h-[1px] bg-[var(--accent)]" />
+                <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">Step {stepIndex + 1} of {signatureSteps.length}</span>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-display tracking-[-0.03em] mb-3">{signatureSteps[stepIndex].label}</h3>
+              <p className="text-base md:text-lg leading-relaxed text-[var(--ink)] mb-6">{signatureSteps[stepIndex].desc}</p>
+              <div className="divider-line mb-6" />
+              <p className="text-sm text-[var(--muted)] leading-relaxed mb-3">
+                <strong className="text-[var(--ink)]">Engineering decision:</strong> Use Azure Logic Apps for orchestration rather than a custom server, reducing maintenance burden and aligning with the cloud-native positioning.
+              </p>
+              <p className="text-sm text-[var(--muted)] leading-relaxed">
+                <strong className="text-[var(--ink)]">Trade-off / limitation:</strong> Logic Apps have a cold-start latency and a pricing model tied to executions — acceptable for this scale, but not optimal for high-throughput streaming.
+              </p>
+            </div>
           </div>
         </div>
+      </section>
+
+      {/* ===== ABOUT + EVIDENCE ===== */}
+      <section id="about" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28 bg-[var(--surface)] border-y border-[var(--line)]">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+          <div className="lg:col-span-5">
+            <div className="flex items-start gap-4 mb-6">
+              <span className="step-marker mt-1" />
+              <h2 className="text-4xl md:text-5xl font-display tracking-[-0.05em] leading-[0.92]">About.</h2>
+            </div>
+            <div className="space-y-5 text-base md:text-lg leading-relaxed text-[var(--ink)]">
+              <p>Sonu Thakur — First-Class BSc (Hons) Computing Systems graduate from the University of Ulster, London. Paul Hanna Award recipient.</p>
+              <p>Primary focus: full-stack and cloud-native development with practical AI-assisted workflows. Not interested in decorative dashboards — interested in systems that can be explained under pressure.</p>
+              <p>Based in London, UK. Seeking graduate, junior and internship technology opportunities.</p>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="https://github.com/ggogogohub" className="inline-flex items-center gap-2 rounded-full bg-[var(--ink)] text-white px-5 py-2.5 text-sm font-medium hover:brightness-110 transition" rel="noopener noreferrer">GitHub</a>
+              <a href="https://linkedin.com/in/thakur-sonu" className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] px-5 py-2.5 text-sm font-medium hover:border-[var(--accent)] hover:text-[var(--accent)] transition" rel="noopener noreferrer">LinkedIn</a>
+              <a href="mailto:badshasonu020@gmail.com" className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] px-5 py-2.5 text-sm font-medium hover:border-[var(--accent)] hover:text-[var(--accent)] transition">Email</a>
+            </div>
+          </div>
+
+          <div className="lg:col-span-7">
+            <h3 className="text-sm uppercase tracking-[0.2em] text-[var(--muted)] mb-6">Verified academic evidence</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              {achievements.map((a) => (
+                <article key={a.num} className="card-surface p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+                  <div className="text-3xl font-display text-[var(--accent)] mb-2">{a.num}</div>
+                  <h4 className="text-base font-display font-medium mb-2 tracking-tight">{a.title}</h4>
+                  <p className="text-sm text-[var(--muted)] leading-relaxed">{a.body}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-10 p-6 md:p-8 rounded-2xl bg-[var(--panel-strong)] border border-[var(--line)] shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+              <h4 className="text-sm uppercase tracking-[0.15em] text-[var(--muted)] mb-4 font-medium">Module performance (verified)</h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {[ ["84", "Data Analytics"], ["80", "Full-stack Strategies"], ["78", "Cloud Native Development"], ["86", "Mathematics for Computing"], ["78", "Database Systems"], ["76", "Software Product & Process"] ].map(([n, label]) => (
+                  <div key={label} className="flex items-baseline gap-2 text-sm">
+                    <span className="font-display text-xl text-[var(--ink)]">{n}</span>
+                    <span className="text-[var(--muted)]">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== CAPABILITIES (contextual, not pill lists) ===== */}
+      <section id="capabilities" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28" aria-label="Capabilities">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-start gap-4 mb-10 md:mb-14">
+            <span className="step-marker mt-1" />
+            <h2 className="text-4xl md:text-5xl font-display tracking-[-0.05em] leading-[0.92]">Capabilities.</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { title: "Cloud-native development", body: "Azure Blob Storage, Cosmos DB, Docker, Logic Apps — evidenced through Media Gallery architecture.", link: "https://github.com/ggogogohub/Media-Gallery" },
+              { title: "Full-stack engineering", body: "React / TypeScript / FastAPI / Flask / MongoDB / Angular 17 — used across Nextera and eBay Used Cars.", link: "https://github.com/ggogogohub/nextera-workforce.co.uk" },
+              { title: "Data & analytics", body: "Data Analytics (84), Cloud Native Development (78), Database Systems (78) — verified module scores.", link: "#about" },
+              { title: "Systems security awareness", body: "JWT authentication, structured inventory workflows, documented technical decisions — not decorative claims.", link: "https://github.com/ggogogohub/eBay-Used-Cars" },
+            ].map((cap) => (
+              <a key={cap.title} href={cap.link} className="group card-surface p-6 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition border-transparent hover:border-[var(--accent-soft)]">
+                <h3 className="text-xl md:text-2xl font-display tracking-[-0.03em] mb-3 group-hover:text-[var(--accent)] transition-colors">{cap.title}</h3>
+                <p className="text-sm md:text-base text-[var(--muted)] leading-relaxed mb-4">{cap.body}</p>
+                <span className="text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] group-hover:decoration-[var(--accent)]">Evidence →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== CONTACT ===== */}
+      <section id="contact" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28 bg-[var(--ink)] text-[var(--foreground)]" aria-label="Contact">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+            <div>
+              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92] mb-6">Let's build clearly.</h2>
+              <p className="text-lg md:text-xl text-[var(--muted)] leading-relaxed max-w-md">
+                Graduate, junior and internship roles in London and the UK. Full-stack, cloud-native, AI-assisted systems. Honest evidence over loud claims.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <a href="mailto:badshasonu020@gmail.com" className="inline-flex items-center gap-3 rounded-xl bg-[var(--surface)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition">
+                <span className="w-10 h-10 rounded-full bg-[var(--accent)] text-white flex items-center justify-center text-sm font-bold">E</span>
+                <div>
+                  <div className="text-xs uppercase tracking-[0.15em] text-[var(--muted)]">Email</div>
+                  <div className="font-display text-lg">badshasonu020@gmail.com</div>
+                </div>
+              </a>
+              <a href="https://github.com/ggogogohub" className="inline-flex items-center gap-3 rounded-xl bg-[var(--surface)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition" rel="noopener noreferrer">
+                <span className="w-10 h-10 rounded-full bg-[var(--ink)] text-white flex items-center justify-center text-sm font-bold">G</span>
+                <div>
+                  <div className="text-xs uppercase tracking-[0.15em] text-[var(--muted)]">GitHub</div>
+                  <div className="font-display text-lg">ggogogohub</div>
+                </div>
+              </a>
+              <a href="https://linkedin.com/in/thakur-sonu" className="inline-flex items-center gap-3 rounded-xl bg-[var(--surface)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition" rel="noopener noreferrer">
+                <span className="w-10 h-10 rounded-full bg-[var(--ink)] text-white flex items-center justify-center text-sm font-bold">L</span>
+                <div>
+                  <div className="text-xs uppercase tracking-[0.15em] text-[var(--muted)]">LinkedIn</div>
+                  <div className="font-display text-lg">thakur-sonu</div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div className="mt-10 pt-8 border-t border-[var(--line)] flex flex-wrap items-center gap-6 text-xs text-[var(--muted)] tracking-wide">
+            <span>Sonu Thakur — London, UK</span>
+            <span>First-Class BSc (Hons) Computing Systems — University of Ulster</span>
+            <span>Paul Hanna Award — School of Computing (QAHE / ULST)</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FOOTER ===== */}
+      <footer className="relative z-10 px-6 md:px-12 lg:px-16 py-8 text-[11px] text-[var(--muted)] flex flex-col md:flex-row items-start md:items-center justify-between gap-3" aria-label="Footer">
+        <span>© {new Date().getFullYear()} Sonu Thakur. All evidence from verified repositories and academic records.</span>
+        <span className="text-[10px]">No fabricated metrics. No unsupported rankings.</span>
       </footer>
     </main>
   );

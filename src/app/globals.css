@@ -1,159 +1,99 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-sans);
-  --font-display: var(--font-display);
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-display: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 }
 
 :root {
-  color-scheme: dark;
-  --background: #030303;
-  --foreground: #f8f5ef;
-  --muted: #9b968d;
-  --panel: rgba(255, 255, 255, 0.055);
-  --panel-strong: rgba(255, 255, 255, 0.095);
-  --line: rgba(248, 245, 239, 0.14);
-  --accent: #ff3d00;
-  --accent-soft: #ff8a3d;
-  --gold: #ffd166;
-  --electric: #7df9ff;
+  color-scheme: light;
+  --background: #f7f4ef;
+  --foreground: #121211;
+  --muted: #78736b;
+  --panel: rgba(18, 18, 17, 0.035);
+  --panel-strong: rgba(18, 18, 17, 0.07);
+  --line: rgba(18, 18, 17, 0.12);
+  --accent: #6b7f5e;        /* restrained moss-green */
+  --accent-soft: #8aa07a;
+  --ink: #121211;
+  --surface: #ebe9e2;
 }
 
-* {
-  box-sizing: border-box;
+/* Dark variant (optional, intentional pair) */
+[data-theme="dark"] {
+  --background: #181815;
+  --foreground: #f0ede6;
+  --muted: #a8a396;
+  --panel: rgba(240, 237, 230, 0.06);
+  --panel-strong: rgba(240, 237, 230, 0.10);
+  --line: rgba(240, 237, 230, 0.14);
+  --ink: #f0ede6;
+  --surface: #22221e;
 }
+
+* { box-sizing: border-box; }
 
 html {
   background: var(--background);
   scroll-behavior: auto;
-}
-
-body {
-  background:
-    radial-gradient(circle at 12% 8%, rgba(255, 61, 0, 0.22), transparent 34rem),
-    radial-gradient(circle at 88% 18%, rgba(125, 249, 255, 0.11), transparent 30rem),
-    radial-gradient(circle at 50% 100%, rgba(255, 209, 102, 0.08), transparent 34rem),
-    var(--background);
-  color: var(--foreground);
-  overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 50;
-  opacity: 0.13;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.55'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overscroll-behavior: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   letter-spacing: -0.055em;
+  line-height: 1.05;
+  color: var(--ink);
 }
 
 ::selection {
-  background: var(--gold);
-  color: #070707;
+  background: rgba(107, 127, 94, 0.25);
+  color: inherit;
 }
 
-/* A slim, branded scrollbar: keeps the dark aesthetic while restoring the
-   scroll-position / content-length affordance mouse and trackpad users rely on. */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent) transparent;
-}
+.text-balance { text-wrap: balance; }
 
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* Branded, high-contrast focus indicator for keyboard users, mirroring the
-   gold hover affordance sighted mouse users get on interactive links. */
-:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-.text-balance {
-  text-wrap: balance;
-}
-
-.glass-panel {
-  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 24px 90px rgba(0,0,0,0.45), inset 0 0 60px rgba(255,209,102,0.06);
-  backdrop-filter: blur(22px) saturate(1.2);
-  -webkit-backdrop-filter: blur(22px) saturate(1.2);
-}
-
-.aurora-text {
-  background: linear-gradient(110deg, var(--foreground), var(--gold), var(--accent-soft), var(--electric));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Editorial typography: tighter tracking for display, tabular figures for data */
 .font-display {
   letter-spacing: -0.055em;
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
 }
 
-.spark-frame {
-  position: relative;
-  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  overflow: hidden;
-}
-.spark-frame::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  padding: 2px;
-  background: conic-gradient(from 0deg, var(--gold), var(--electric), var(--accent-soft), var(--gold));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: spark-spin 3s linear infinite;
-  pointer-events: none;
-}
-@keyframes spark-spin {
-  to { transform: rotate(360deg); }
+/* Focus indicator — visible, high-contrast, accessible */
+:focus-visible {
+  outline: 2.5px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-/* Fixed grid texture — replaces the old WebGL component's grid overlay with a
-   pure-CSS layer so the background stays layered (gradient + grid + grain)
-   without any WebGL. Sits behind content (z-0) and fades toward the bottom. */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.4;
-  background-image:
-    linear-gradient(rgba(248, 245, 239, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(248, 245, 239, 0.05) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: linear-gradient(to bottom, black, transparent 80%);
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent 80%);
+/* Subtle divider — replaces gradient bars */
+.divider-line {
+  height: 1px;
+  background: var(--line);
+}
+
+/* Card surface — solid, not glass */
+.card-surface {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+}
+
+/* Signature interaction step-marker */
+.step-marker {
+  width: 0.65rem; height: 0.65rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  flex-shrink: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
