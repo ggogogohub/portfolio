@@ -76,9 +76,8 @@ export default function RootPage() {
       {/* ===== HERO ===== */}
       <section className="relative z-10 min-h-[92svh] md:min-h-[100svh] w-full px-6 md:px-12 lg:px-16 pt-10 md:pt-12 pb-16 md:pb-24 flex flex-col">
         {/* Nav */}
-        <nav className="flex items-center justify-between gap-4 text-[11px] md:text-xs uppercase tracking-[0.15em] text-[var(--muted)]" aria-label="Primary">
-          <a href="#" className="font-display font-medium tracking-tight text-[var(--ink)]">Sonu Thakur</a>
-          <div className="hidden md:flex items-center gap-8">
+        <nav className="flex items-center justify-end gap-4 text-[11px] md:text-xs uppercase tracking-[0.15em] text-[var(--muted)]" aria-label="Primary">
+          <div className="flex items-center gap-6 md:gap-8">
             <a href="#work" className="hover:text-[var(--accent)] transition-colors">Work</a>
             <a href="#about" className="hover:text-[var(--accent)] transition-colors">About</a>
             <a href="#contact" className="hover:text-[var(--accent)] transition-colors">Contact</a>
