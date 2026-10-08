@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import SignatureExperience from "../components/SignatureExperience";
 import ThemeToggle from "../components/ThemeToggle";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -123,7 +122,7 @@ export default function RootPage() {
             </div>
           </div>
 
-          {/* Right: featured visual — verified architecture diagram, not fake screenshot */}
+          {/* Featured project visual */}
           <aside className="lg:col-span-5 lg:pl-4 lg:-mt-6" aria-label="Featured project visual">
             <div className="card-surface p-6 md:p-8 shadow-[0_40px_120px_rgba(0,0,0,0.08)] relative overflow-hidden">
               <div className="flex items-center gap-3 mb-5">
@@ -134,42 +133,6 @@ export default function RootPage() {
               <p className="text-sm md:text-base text-[var(--muted)] leading-relaxed mb-6">
                 A simple upload. A system behind it. Four steps explain the verified architecture: upload interface, Azure Blob Storage, Cosmos DB + Logic Apps, and returned preview.
               </p>
-
-              {/* PREMIUM REPLACEMENT: Verified Interactive Flow (inspired by React Flow + LunarUI Sparkles) */}
-              <div className="relative overflow-hidden" aria-label="Verified architecture flow: interactive node system">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-3">
-                  <div className="group relative p-5 rounded-2xl bg-[var(--panel-strong)] border border-[var(--line)] hover:border-[var(--accent)] transition hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
-                    <div className="w-8 h-8 rounded-full bg-[var(--accent)] text-white flex items-center justify-center text-xs font-bold mb-3 shadow-[0_2px_8px_rgba(107,127,94,0.3)]">01</div>
-                    <h3 className="font-display text-lg tracking-tight mb-1">Upload</h3>
-                    <p className="text-xs text-[var(--muted)] leading-relaxed">React interface. Drop, select, or paste.</p>
-                    <div className="mt-3 inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-[var(--accent)] font-medium"><span className="w-1 h-1 rounded-full bg-[var(--accent)] animate-pulse" />Verified</div>
-                  </div>
-                  <div className="hidden md:flex items-center justify-center"><div className="w-10 h-[2px] bg-gradient-to-r from-[var(--accent)] to-[var(--line)] rounded-full relative overflow-hidden"><div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-[shimmer_2s_infinite]" /></div></div>
-                  <div className="group relative p-5 rounded-2xl bg-[var(--panel-strong)] border border-[var(--line)] hover:border-[var(--accent)] transition hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
-                    <div className="w-8 h-8 rounded-full bg-[var(--accent)] text-white flex items-center justify-center text-xs font-bold mb-3 shadow-[0_2px_8px_rgba(107,127,94,0.3)]">02</div>
-                    <h3 className="font-display text-lg tracking-tight mb-1">Storage</h3>
-                    <p className="text-xs text-[var(--muted)] leading-relaxed">Azure Blob. Encrypted at rest.</p>
-                    <div className="mt-3 inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-[var(--accent)] font-medium"><span className="w-1 h-1 rounded-full bg-[var(--accent)] animate-pulse" />Verified</div>
-                  </div>
-                  <div className="hidden md:flex items-center justify-center"><div className="w-10 h-[2px] bg-gradient-to-r from-[var(--accent)] to-[var(--line)] rounded-full relative overflow-hidden"><div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-[shimmer_2s_infinite]" /></div></div>
-                  <div className="group relative p-5 rounded-2xl bg-[var(--panel-strong)] border border-[var(--line)] hover:border-[var(--accent)] transition hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
-                    <div className="w-8 h-8 rounded-full bg-[var(--accent)] text-white flex items-center justify-center text-xs font-bold mb-3 shadow-[0_2px_8px_rgba(107,127,94,0.3)]">03</div>
-                    <h3 className="font-display text-lg tracking-tight mb-1">API + Meta</h3>
-                    <p className="text-xs text-[var(--muted)] leading-relaxed">Logic Apps + Cosmos DB. Auto-indexed.</p>
-                    <div className="mt-3 inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-[var(--accent)] font-medium"><span className="w-1 h-1 rounded-full bg-[var(--accent)] animate-pulse" />Verified</div>
-                  </div>
-                </div>
-                <div className="mt-4 p-5 rounded-2xl bg-[#ebe9e2] border-2 border-[var(--accent)] shadow-[0_4px_24px_rgba(107,127,94,0.15)]">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[var(--ink)] text-white flex items-center justify-center font-display font-bold text-sm">R</div>
-                    <div>
-                      <h4 className="font-display text-xl tracking-tight">Result - preview and manage</h4>
-                      <p className="text-sm text-[var(--muted)]">Verified: React - Storage - API - User. No fabricated metrics.</p>
-                    </div>
-                    <div className="ml-auto hidden sm:block text-xs uppercase tracking-[0.15em] text-[var(--accent)] font-medium">Verified System</div>
-                  </div>
-                </div>
-              </div>
 
               <a href="#signature" className="inline-flex items-center gap-2 mt-5 text-sm font-medium text-[var(--accent)] hover:underline underline-offset-4">
                 See both systems &rarr;
@@ -214,7 +177,6 @@ export default function RootPage() {
         </div>
       </section>
 
-      <SignatureExperience />
 
       {/* ===== ABOUT + EVIDENCE ===== */}
       <section id="about" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28 bg-[var(--surface)] border-y border-[var(--line)]">
