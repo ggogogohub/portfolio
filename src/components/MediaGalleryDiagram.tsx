@@ -1,25 +1,19 @@
 import React from "react";
 
-/* Media Gallery — corrected SVG diagram based on verified repo evidence
-   Source: https://github.com/ggogogohub/Media-Gallery (React, Vite, Azure Blob, Cosmos DB, Logic Apps)
-*/
+/* Media Gallery — rebuilt with explicit geometry, connected markers, responsive viewBox */
 export default function MediaGalleryDiagram() {
   return (
-    <svg
-      viewBox="0 0 480 260"
-      className="w-full h-auto"
-      role="img"
-      aria-label="Media Gallery architecture: Upload interface → Azure Blob Storage → Logic Apps / Cosmos DB → Preview result"
-      preserveAspectRatio="xMidYMid meet"
-    >
+    <svg style={{ colorScheme: 'light' }} viewBox="0 0 480 260" className="w-full h-auto" role="img" aria-label="Media Gallery architecture: Upload → Azure Blob Storage → Logic Apps / Cosmos DB → Preview result" preserveAspectRatio="xMidYMid meet">
       <defs>
         <linearGradient id="mg-grad" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#6b7f5e" />
           <stop offset="100%" stopColor="#8aa07a" />
         </linearGradient>
+        <marker id="mg-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+          <polygon points="0 0, 10 3, 0 6" fill="#6b7f5e" />
+        </marker>
       </defs>
 
-      {/* Nodes */}
       <g fontFamily="system-ui, sans-serif">
         {/* Upload */}
         <rect x="20" y="30" width="110" height="56" rx="12" fill="#ebe9e2" stroke="#cfc9bc" strokeWidth="1.5" />
@@ -42,22 +36,11 @@ export default function MediaGalleryDiagram() {
         <text x="240" y="206" textAnchor="middle" fontSize="10" fill="#78736b">Verified: React → Storage → API → User</text>
       </g>
 
-      {/* Arrows — precise from node edges */}
       <g stroke="url(#mg-grad)" strokeWidth="2.5" fill="none" markerEnd="url(#mg-arrow)" strokeLinecap="round">
-        {/* Upload → Storage */}
         <line x1="130" y1="58" x2="160" y2="58" />
-        {/* Storage → API */}
         <line x1="270" y1="58" x2="300" y2="58" />
-        {/* API → Result (down + left) */}
         <polyline points="370,86 370,160 240,160" />
       </g>
-
-      {/* Arrow marker */}
-      <defs>
-        <marker id="mg-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-          <polygon points="0 0, 10 3, 0 6" fill="#6b7f5e" />
-        </marker>
-      </defs>
     </svg>
   );
 }

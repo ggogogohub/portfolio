@@ -82,6 +82,29 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--line);
 }
 
+/* Diagram semantic tokens — light and dark */
+:root {
+  --diagram-node-bg: #ebe9e2;
+  --diagram-node-text: #121211;
+  --diagram-node-muted: #78736b;
+  --diagram-node-border: #cfc9bc;
+  --diagram-node-border-strong: #6b7f5e;
+  --diagram-edge: #6b7f5e;
+  --button-primary-bg: #6b7f5e;
+  --button-primary-text: #ffffff;
+}
+.dark,
+[data-theme="dark"] {
+  --diagram-node-bg: #22221e;
+  --diagram-node-text: #f0ede6;
+  --diagram-node-muted: #a8a396;
+  --diagram-node-border: #3a3a36;
+  --diagram-node-border-strong: #8aa07a;
+  --diagram-edge: #8aa07a;
+  --button-primary-bg: #8aa07a;
+  --button-primary-text: #121211;
+}
+
 /* Card surface — solid, not glass */
 .card-surface {
   background: var(--surface);
@@ -104,4 +127,9 @@ h1, h2, h3, h4, h5, h6 {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }

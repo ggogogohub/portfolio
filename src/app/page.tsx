@@ -135,46 +135,44 @@ export default function RootPage() {
                 A simple upload. A system behind it. Four steps explain the verified architecture: upload interface, Azure Blob Storage, Cosmos DB + Logic Apps, and returned preview.
               </p>
 
-              {/* Accurate SVG diagram — not decorative; shows verified flow */}
-              <svg viewBox="0 0 400 220" className="w-full h-auto" aria-label="Media Gallery architecture: upload to storage to API to result" role="img">
-                <defs>
-                  <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#6b7f5e" />
-                    <stop offset="100%" stopColor="#8aa07a" />
-                  </linearGradient>
-                </defs>
-                {/* Flow boxes */}
-                <rect x="20" y="20" width="90" height="46" rx="12" fill="var(--panel-strong)" stroke="var(--line)" strokeWidth="1" />
-                <text x="65" y="44" textAnchor="middle" fontSize="11" fontFamily="system-ui" fill="var(--ink)">Upload</text>
-                <text x="65" y="58" textAnchor="middle" fontSize="9" fontFamily="system-ui" fill="var(--muted)">UI / React</text>
-
-                <rect x="140" y="20" width="90" height="46" rx="12" fill="var(--panel-strong)" stroke="var(--line)" strokeWidth="1" />
-                <text x="185" y="44" textAnchor="middle" fontSize="11" fontFamily="system-ui" fill="var(--ink)">Storage</text>
-                <text x="185" y="58" textAnchor="middle" fontSize="9" fontFamily="system-ui" fill="var(--muted)">Azure Blob</text>
-
-                <rect x="260" y="20" width="110" height="46" rx="12" fill="var(--panel-strong)" stroke="var(--line)" strokeWidth="1" />
-                <text x="315" y="44" textAnchor="middle" fontSize="11" fontFamily="system-ui" fill="var(--ink)">API + Meta</text>
-                <text x="315" y="58" textAnchor="middle" fontSize="9" fontFamily="system-ui" fill="var(--muted)">Logic Apps / Cosmos</text>
-
-                <rect x="140" y="120" width="240" height="60" rx="14" fill="#ebe9e2" stroke="var(--accent)" strokeWidth="2" />
-                <text x="260" y="152" textAnchor="middle" fontSize="13" fontWeight="600" fontFamily="system-ui" fill="var(--ink)">Result — preview &amp; manage</text>
-                <text x="260" y="170" textAnchor="middle" fontSize="10" fontFamily="system-ui" fill="var(--muted)">Verified: React → Storage → API → User</text>
-
-                {/* Arrows */}
-                <line x1="110" y1="43" x2="140" y2="43" stroke="url(#grad1)" strokeWidth="2.5" markerEnd="url(#arrow)" />
-                <line x1="230" y1="43" x2="260" y2="43" stroke="url(#grad1)" strokeWidth="2.5" markerEnd="url(#arrow)" />
-                <line x1="315" y1="66" x2="315" y2="120" stroke="url(#grad1)" strokeWidth="2.5" markerEnd="url(#arrow)" />
-                <line x1="260" y1="120" x2="260" y2="106" stroke="url(#grad1)" strokeWidth="2.5" markerEnd="url(#arrow)" />
-
-                <defs>
-                  <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-                    <polygon points="0 0, 10 3, 0 6" fill="#6b7f5e" />
-                  </marker>
-                </defs>
-              </svg>
+              {/* PREMIUM REPLACEMENT: Verified Interactive Flow (inspired by React Flow + LunarUI Sparkles) */}
+              <div className="relative overflow-hidden" aria-label="Verified architecture flow: interactive node system">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-3">
+                  <div className="group relative p-5 rounded-2xl bg-[var(--panel-strong)] border border-[var(--line)] hover:border-[var(--accent)] transition hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+                    <div className="w-8 h-8 rounded-full bg-[var(--accent)] text-white flex items-center justify-center text-xs font-bold mb-3 shadow-[0_2px_8px_rgba(107,127,94,0.3)]">01</div>
+                    <h3 className="font-display text-lg tracking-tight mb-1">Upload</h3>
+                    <p className="text-xs text-[var(--muted)] leading-relaxed">React interface. Drop, select, or paste.</p>
+                    <div className="mt-3 inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-[var(--accent)] font-medium"><span className="w-1 h-1 rounded-full bg-[var(--accent)] animate-pulse" />Verified</div>
+                  </div>
+                  <div className="hidden md:flex items-center justify-center"><div className="w-10 h-[2px] bg-gradient-to-r from-[var(--accent)] to-[var(--line)] rounded-full relative overflow-hidden"><div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-[shimmer_2s_infinite]" /></div></div>
+                  <div className="group relative p-5 rounded-2xl bg-[var(--panel-strong)] border border-[var(--line)] hover:border-[var(--accent)] transition hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+                    <div className="w-8 h-8 rounded-full bg-[var(--accent)] text-white flex items-center justify-center text-xs font-bold mb-3 shadow-[0_2px_8px_rgba(107,127,94,0.3)]">02</div>
+                    <h3 className="font-display text-lg tracking-tight mb-1">Storage</h3>
+                    <p className="text-xs text-[var(--muted)] leading-relaxed">Azure Blob. Encrypted at rest.</p>
+                    <div className="mt-3 inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-[var(--accent)] font-medium"><span className="w-1 h-1 rounded-full bg-[var(--accent)] animate-pulse" />Verified</div>
+                  </div>
+                  <div className="hidden md:flex items-center justify-center"><div className="w-10 h-[2px] bg-gradient-to-r from-[var(--accent)] to-[var(--line)] rounded-full relative overflow-hidden"><div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-[shimmer_2s_infinite]" /></div></div>
+                  <div className="group relative p-5 rounded-2xl bg-[var(--panel-strong)] border border-[var(--line)] hover:border-[var(--accent)] transition hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+                    <div className="w-8 h-8 rounded-full bg-[var(--accent)] text-white flex items-center justify-center text-xs font-bold mb-3 shadow-[0_2px_8px_rgba(107,127,94,0.3)]">03</div>
+                    <h3 className="font-display text-lg tracking-tight mb-1">API + Meta</h3>
+                    <p className="text-xs text-[var(--muted)] leading-relaxed">Logic Apps + Cosmos DB. Auto-indexed.</p>
+                    <div className="mt-3 inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-[var(--accent)] font-medium"><span className="w-1 h-1 rounded-full bg-[var(--accent)] animate-pulse" />Verified</div>
+                  </div>
+                </div>
+                <div className="mt-4 p-5 rounded-2xl bg-[#ebe9e2] border-2 border-[var(--accent)] shadow-[0_4px_24px_rgba(107,127,94,0.15)]">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[var(--ink)] text-white flex items-center justify-center font-display font-bold text-sm">R</div>
+                    <div>
+                      <h4 className="font-display text-xl tracking-tight">Result - preview and manage</h4>
+                      <p className="text-sm text-[var(--muted)]">Verified: React - Storage - API - User. No fabricated metrics.</p>
+                    </div>
+                    <div className="ml-auto hidden sm:block text-xs uppercase tracking-[0.15em] text-[var(--accent)] font-medium">Verified System</div>
+                  </div>
+                </div>
+              </div>
 
               <a href="#signature" className="inline-flex items-center gap-2 mt-5 text-sm font-medium text-[var(--accent)] hover:underline underline-offset-4">
-                See both systems →
+                See both systems &rarr;
               </a>
             </div>
           </aside>
