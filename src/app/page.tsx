@@ -104,9 +104,9 @@ export default function RootPage() {
             </h1>
 
             <div className="max-w-xl">
-              <p className="hero-sub text-xl md:text-2xl lg:text-[1.65rem] leading-snug text-[var(--ink)] font-light tracking-[-0.02em]">
+              <p className="hero-sub text-2xl md:text-[1.75rem] lg:text-[2rem] leading-snug text-[var(--ink)] font-medium tracking-[-0.02em]">
                 Complex problems.<br />
-                <span className="text-[var(--muted)]">Clear systems.</span>
+                <span className="text-[var(--muted)] font-normal">Clear systems.</span>
               </p>
               <p className="hero-sub mt-3 text-base md:text-lg text-[var(--muted)] leading-relaxed max-w-md">
                 I build full-stack and cloud-native software with practical workflows and clear technical decisions.
@@ -188,7 +188,7 @@ export default function RootPage() {
             <span className="step-marker mt-1" />
             <div>
               <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92]">Selected work.</h2>
-              <p className="mt-3 text-base md:text-lg text-[var(--muted)] max-w-lg">Verified repositories, actual technologies, honest scope. No fabricated metrics.</p>
+              <p className="mt-3 text-base md:text-lg text-[var(--muted)] max-w-lg">Applications built around practical problems.</p>
             </div>
           </div>
 
@@ -216,7 +216,6 @@ export default function RootPage() {
         </div>
       </section>
 
-      {/* ===== SIGNATURE INTERACTION ===== */}
       <SignatureExperience />
 
       {/* ===== ABOUT + EVIDENCE ===== */}
@@ -291,7 +290,7 @@ export default function RootPage() {
       </section>
 
       {/* ===== CONTACT ===== */}
-      <section id="contact" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28 bg-[var(--ink)] text-[var(--foreground)]" aria-label="Contact">
+      <section id="contact" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28 bg-[var(--surface)] border-y border-[var(--line)] text-[var(--ink)]" aria-label="Contact">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <div>
@@ -301,21 +300,21 @@ export default function RootPage() {
               </p>
             </div>
             <div className="flex flex-col gap-3">
-              <a href="mailto:badshasonu020@gmail.com" className="inline-flex items-center gap-3 rounded-xl bg-[var(--surface)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition">
+              <a href="mailto:badshasonu020@gmail.com" className="inline-flex items-center gap-3 rounded-xl bg-[var(--background)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition">
                 <span className="w-10 h-10 rounded-full bg-[var(--accent)] text-white flex items-center justify-center text-sm font-bold">E</span>
                 <div>
                   <div className="text-xs uppercase tracking-[0.15em] text-[var(--muted)]">Email</div>
                   <div className="font-display text-lg">badshasonu020@gmail.com</div>
                 </div>
               </a>
-              <a href="https://github.com/ggogogohub" className="inline-flex items-center gap-3 rounded-xl bg-[var(--surface)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition" rel="noopener noreferrer">
+              <a href="https://github.com/ggogogohub" className="inline-flex items-center gap-3 rounded-xl bg-[var(--background)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition" rel="noopener noreferrer">
                 <span className="w-10 h-10 rounded-full bg-[var(--ink)] text-white flex items-center justify-center text-sm font-bold">G</span>
                 <div>
                   <div className="text-xs uppercase tracking-[0.15em] text-[var(--muted)]">GitHub</div>
                   <div className="font-display text-lg">ggogogohub</div>
                 </div>
               </a>
-              <a href="https://linkedin.com/in/thakur-sonu" className="inline-flex items-center gap-3 rounded-xl bg-[var(--surface)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition" rel="noopener noreferrer">
+              <a href="https://linkedin.com/in/thakur-sonu" className="inline-flex items-center gap-3 rounded-xl bg-[var(--background)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition" rel="noopener noreferrer">
                 <span className="w-10 h-10 rounded-full bg-[var(--ink)] text-white flex items-center justify-center text-sm font-bold">L</span>
                 <div>
                   <div className="text-xs uppercase tracking-[0.15em] text-[var(--muted)]">LinkedIn</div>
@@ -324,18 +323,21 @@ export default function RootPage() {
               </a>
             </div>
           </div>
-          <div className="mt-10 pt-8 border-t border-[var(--line)] flex flex-wrap items-center gap-6 text-xs text-[var(--muted)] tracking-wide">
-            <span>Sonu Thakur — London, UK</span>
-            <span>First-Class BSc (Hons) Computing Systems — University of Ulster</span>
-            <span>Paul Hanna Award — School of Computing (QAHE / ULST)</span>
+          <div className="mt-10 pt-8 border-t border-[var(--line)] flex flex-col md:flex-row md:items-center justify-between gap-4 text-sm text-[var(--muted)]">
+            <span className="font-display text-lg text-[var(--ink)]">Let's build something that matters.</span>
+            <div className="flex gap-3">
+              <a href="mailto:badshasonu020@gmail.com" className="underline underline-offset-4 hover:text-[var(--accent)] transition">Email</a>
+              <a href="https://github.com/ggogogohub" className="underline underline-offset-4 hover:text-[var(--accent)] transition" rel="noopener noreferrer">GitHub</a>
+              <a href="https://linkedin.com/in/thakur-sonu" className="underline underline-offset-4 hover:text-[var(--accent)] transition" rel="noopener noreferrer">LinkedIn</a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ===== FOOTER ===== */}
       <footer className="relative z-10 px-6 md:px-12 lg:px-16 py-8 text-[11px] text-[var(--muted)] flex flex-col md:flex-row items-start md:items-center justify-between gap-3" aria-label="Footer">
-        <span>© 2026 Sonu Thakur. All evidence from verified repositories and academic records.</span>
-        <span className="text-[10px]">No fabricated metrics. No unsupported rankings.</span>
+        <span>Sonu Thakur — Computing Graduate, London</span>
+        <span className="text-[10px] opacity-60">Portfolio — 2026</span>
       </footer>
     </main>
   );
