@@ -1,3 +1,4 @@
+import { ThemeProvider } from "next-themes";
 import type { Metadata, Viewport } from "next";
 import { Manrope, Space_Grotesk } from "next/font/google";
 import "./globals.css";
@@ -47,8 +48,8 @@ export const metadata: Metadata = {
 // Force-dark site: paint mobile browser chrome (address/status bar) and native
 // controls in the page's near-black base so there's no light strip on load.
 export const viewport: Viewport = {
-  themeColor: "#030303",
-  colorScheme: "dark",
+  themeColor: "#6b7f5e",
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({
@@ -59,14 +60,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fontDisplay.variable} ${fontSans.variable} dark antialiased`}
+      className={`${fontDisplay.variable} ${fontSans.variable} antialiased`}
       suppressHydrationWarning
     >
       <body
         className="bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col font-sans overflow-x-hidden"
-        suppressHydrationWarning
       >
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

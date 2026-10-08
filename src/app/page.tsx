@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import SignatureExperience from "../components/SignatureExperience";
+import ThemeToggle from "../components/ThemeToggle";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -29,7 +31,7 @@ const projects = [
     repo: "https://github.com/ggogogohub/Media-Gallery",
     tech: ["React", "Vite", "Azure Blob Storage", "Cosmos DB", "Logic Apps"],
     summary: "Uploading, previewing and managing images, video and audio with REST API support.",
-    note: "Signature interaction uses this project — architecture verified from repo readme.",
+    note: "Verified architecture from repository.",
   },
   {
     title: "eBay Used Cars",
@@ -49,16 +51,8 @@ const achievements = [
 ];
 
 /* Signature interaction — 4 steps explaining Media Gallery architecture */
-const signatureSteps = [
-  { label: "Upload interface", desc: "User selects and submits media through a clean React/Vite frontend." },
-  { label: "Storage", desc: "Azure Blob Storage handles scalable object storage with metadata indexing." },
-  { label: "API & metadata", desc: "Azure Logic Apps orchestrate REST flows; Cosmos DB holds structured metadata." },
-  { label: "Result", desc: "Preview and management return to the user — the system operates behind one upload." },
-];
-
 export default function RootPage() {
   const container = useRef<HTMLDivElement>(null);
-  const [stepIndex, setStepIndex] = useState(0);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -89,6 +83,9 @@ export default function RootPage() {
             <a href="#work" className="hover:text-[var(--accent)] transition-colors">Work</a>
             <a href="#about" className="hover:text-[var(--accent)] transition-colors">About</a>
             <a href="#contact" className="hover:text-[var(--accent)] transition-colors">Contact</a>
+            <div className="ml-2" aria-label="Theme selection">
+              <ThemeToggle />
+            </div>
           </div>
         </nav>
 
@@ -131,7 +128,7 @@ export default function RootPage() {
             <div className="card-surface p-6 md:p-8 shadow-[0_40px_120px_rgba(0,0,0,0.08)] relative overflow-hidden">
               <div className="flex items-center gap-3 mb-5">
                 <span className="step-marker" />
-                <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">Signature interaction</span>
+                <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">Featured system</span>
               </div>
               <h2 className="text-2xl md:text-3xl font-display tracking-[-0.04em] mb-3">Media Gallery</h2>
               <p className="text-sm md:text-base text-[var(--muted)] leading-relaxed mb-6">
@@ -177,7 +174,7 @@ export default function RootPage() {
               </svg>
 
               <a href="#signature" className="inline-flex items-center gap-2 mt-5 text-sm font-medium text-[var(--accent)] hover:underline underline-offset-4">
-                Read the signature sequence →
+                See both systems →
               </a>
             </div>
           </aside>
@@ -220,55 +217,7 @@ export default function RootPage() {
       </section>
 
       {/* ===== SIGNATURE INTERACTION ===== */}
-      <section id="signature" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28" aria-label="Signature interaction">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-start gap-4 mb-10 md:mb-14">
-            <span className="step-marker mt-1" />
-            <div>
-              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92]">A simple upload.<br />A system behind it.</h2>
-              <p className="mt-3 text-base md:text-lg text-[var(--muted)] max-w-xl">The Media Gallery experience explains verified architecture — not decoration. Four steps, clear purpose.</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-            {/* Steps */}
-            <div className="flex flex-col gap-3" role="list" aria-label="Architecture steps">
-              {signatureSteps.map((s, i) => (
-                <button
-                  key={s.label}
-                  onClick={() => setStepIndex(i)}
-                  role="listitem"
-                  className={`text-left w-full rounded-2xl border px-6 py-5 transition ${i === stepIndex ? "bg-[var(--panel-strong)] border-[var(--accent)] shadow-[0_4px_20px_rgba(107,127,94,0.12)]" : "bg-[var(--surface)] border-[var(--line)] hover:border-[var(--accent-soft)]"}`}
-                  aria-current={i === stepIndex ? "step" : undefined}
-                >
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${i === stepIndex ? "bg-[var(--accent)] text-white" : "bg-[var(--line)] text-[var(--muted)]"}`}>{i + 1}</span>
-                    <span className={`text-sm font-medium ${i === stepIndex ? "text-[var(--ink)]" : "text-[var(--muted)]"}`}>{s.label}</span>
-                  </div>
-                  <p className="text-sm leading-relaxed text-[var(--muted)]">{s.desc}</p>
-                </button>
-              ))}
-            </div>
-
-            {/* Step visual / context */}
-            <div className="card-surface p-6 md:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.06)] h-fit">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="w-8 h-[1px] bg-[var(--accent)]" />
-                <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">Step {stepIndex + 1} of {signatureSteps.length}</span>
-              </div>
-              <h3 className="text-2xl md:text-3xl font-display tracking-[-0.03em] mb-3">{signatureSteps[stepIndex].label}</h3>
-              <p className="text-base md:text-lg leading-relaxed text-[var(--ink)] mb-6">{signatureSteps[stepIndex].desc}</p>
-              <div className="divider-line mb-6" />
-              <p className="text-sm text-[var(--muted)] leading-relaxed mb-3">
-                <strong className="text-[var(--ink)]">Engineering decision:</strong> Use Azure Logic Apps for orchestration rather than a custom server, reducing maintenance burden and aligning with the cloud-native positioning.
-              </p>
-              <p className="text-sm text-[var(--muted)] leading-relaxed">
-                <strong className="text-[var(--ink)]">Trade-off / limitation:</strong> Logic Apps have a cold-start latency and a pricing model tied to executions — acceptable for this scale, but not optimal for high-throughput streaming.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SignatureExperience />
 
       {/* ===== ABOUT + EVIDENCE ===== */}
       <section id="about" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28 bg-[var(--surface)] border-y border-[var(--line)]">
@@ -385,7 +334,7 @@ export default function RootPage() {
 
       {/* ===== FOOTER ===== */}
       <footer className="relative z-10 px-6 md:px-12 lg:px-16 py-8 text-[11px] text-[var(--muted)] flex flex-col md:flex-row items-start md:items-center justify-between gap-3" aria-label="Footer">
-        <span>© {new Date().getFullYear()} Sonu Thakur. All evidence from verified repositories and academic records.</span>
+        <span>© 2026 Sonu Thakur. All evidence from verified repositories and academic records.</span>
         <span className="text-[10px]">No fabricated metrics. No unsupported rankings.</span>
       </footer>
     </main>

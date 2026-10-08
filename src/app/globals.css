@@ -20,7 +20,8 @@
   --surface: #ebe9e2;
 }
 
-/* Dark variant (optional, intentional pair) */
+/* Dark variant — supports both next-themes class and manual data-theme */
+.dark,
 [data-theme="dark"] {
   --background: #181815;
   --foreground: #f0ede6;
