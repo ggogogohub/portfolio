@@ -77,7 +77,7 @@ export default function RootPage() {
       {/* ===== HERO ===== */}
       <section className="relative z-10 min-h-[92svh] md:min-h-[100svh] w-full px-6 md:px-12 lg:px-16 pt-10 md:pt-12 pb-16 md:pb-24 flex flex-col">
         {/* Nav */}
-        <nav className="flex items-center justify-between gap-4 text-[11px] md:text-xs uppercase tracking-[0.22em] text-[var(--muted)]" aria-label="Primary">
+        <nav className="flex items-center justify-between gap-4 text-[11px] md:text-xs uppercase tracking-[0.15em] text-[var(--muted)]" aria-label="Primary">
           <a href="#" className="font-display font-medium tracking-tight text-[var(--ink)]">Sonu Thakur</a>
           <div className="hidden md:flex items-center gap-8">
             <a href="#work" className="hover:text-[var(--accent)] transition-colors">Work</a>
@@ -93,7 +93,7 @@ export default function RootPage() {
         <div className="mt-10 md:mt-14 lg:mt-20 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
           {/* Left: identity + value */}
           <div className="lg:col-span-7 flex flex-col gap-6 md:gap-8 lg:pr-8">
-            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-[var(--muted)]">
+            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.15em] text-[var(--muted)]">
               <span className="inline-block w-6 h-[1px] bg-[var(--accent)]" />
               <span>London, UK — Computing Graduate</span>
             </div>
@@ -104,7 +104,7 @@ export default function RootPage() {
             </h1>
 
             <div className="max-w-xl">
-              <p className="hero-sub text-2xl md:text-[1.75rem] lg:text-[2rem] leading-snug text-[var(--ink)] font-medium tracking-[-0.02em]">
+              <p className="hero-sub text-2xl md:text-[1.75rem] lg:text-[2rem] leading-snug text-[var(--ink)] font-light tracking-[-0.02em]">
                 Complex problems.<br />
                 <span className="text-[var(--muted)] font-normal">Clear systems.</span>
               </p>
@@ -237,7 +237,7 @@ export default function RootPage() {
           </div>
 
           <div className="lg:col-span-7">
-            <h3 className="text-sm uppercase tracking-[0.2em] text-[var(--muted)] mb-6">Verified academic evidence</h3>
+            <h3 className="text-sm uppercase tracking-[0.15em] text-[var(--muted)] mb-6">Verified academic evidence</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {achievements.map((a) => (
                 <article key={a.num} className="card-surface p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
