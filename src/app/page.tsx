@@ -191,7 +191,7 @@ export default function RootPage() {
               <p>Based in London, UK. Seeking graduate, junior and internship technology opportunities.</p>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="https://github.com/ggogogohub" className="inline-flex items-center gap-2 rounded-full bg-[var(--ink)] text-white px-5 py-2.5 text-sm font-medium hover:brightness-110 transition" rel="noopener noreferrer">GitHub</a>
+              <a href="https://github.com/ggogogohub" className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-transparent text-[var(--ink)] px-5 py-2.5 text-sm font-medium hover:border-[var(--accent)] hover:text-[var(--accent)] transition" rel="noopener noreferrer">GitHub</a>
               <a href="https://linkedin.com/in/thakur-sonu" className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] px-5 py-2.5 text-sm font-medium hover:border-[var(--accent)] hover:text-[var(--accent)] transition" rel="noopener noreferrer">LinkedIn</a>
               <a href="mailto:badshasonu020@gmail.com" className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] px-5 py-2.5 text-sm font-medium hover:border-[var(--accent)] hover:text-[var(--accent)] transition">Email</a>
             </div>
@@ -260,21 +260,21 @@ export default function RootPage() {
             </div>
             <div className="flex flex-col gap-3">
               <a href="mailto:badshasonu020@gmail.com" className="inline-flex items-center gap-3 rounded-xl bg-[var(--background)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition">
-                <span className="w-10 h-10 rounded-full bg-[var(--accent)] text-white flex items-center justify-center text-sm font-bold">E</span>
+                <span className="w-10 h-10 rounded-full bg-[var(--accent)] text-white flex items-center justify-center shadow-[0_2px_8px_rgba(107,127,94,0.3)]" aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 7l10 7 10-7"/></svg></span>
                 <div>
                   <div className="text-xs uppercase tracking-[0.15em] text-[var(--muted)]">Email</div>
                   <div className="font-display text-lg">badshasonu020@gmail.com</div>
                 </div>
               </a>
               <a href="https://github.com/ggogogohub" className="inline-flex items-center gap-3 rounded-xl bg-[var(--background)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition" rel="noopener noreferrer">
-                <span className="w-10 h-10 rounded-full bg-[var(--ink)] text-white flex items-center justify-center text-sm font-bold">G</span>
+                <span className="w-10 h-10 rounded-full bg-[var(--accent)] text-white flex items-center justify-center shadow-[0_2px_8px_rgba(107,127,94,0.3)]" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></span>
                 <div>
                   <div className="text-xs uppercase tracking-[0.15em] text-[var(--muted)]">GitHub</div>
                   <div className="font-display text-lg">ggogogohub</div>
                 </div>
               </a>
               <a href="https://linkedin.com/in/thakur-sonu" className="inline-flex items-center gap-3 rounded-xl bg-[var(--background)] border border-[var(--line)] px-6 py-4 hover:border-[var(--accent-soft)] transition" rel="noopener noreferrer">
-                <span className="w-10 h-10 rounded-full bg-[var(--ink)] text-white flex items-center justify-center text-sm font-bold">L</span>
+                <span className="w-10 h-10 rounded-full bg-[var(--accent)] text-white flex items-center justify-center shadow-[0_2px_8px_rgba(107,127,94,0.3)]" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></span>
                 <div>
                   <div className="text-xs uppercase tracking-[0.15em] text-[var(--muted)]">LinkedIn</div>
                   <div className="font-display text-lg">thakur-sonu</div>
