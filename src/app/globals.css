@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 @theme {
   --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --font-display: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
@@ -133,3 +134,11 @@ h1, h2, h3, h4, h5, h6 {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
+
+/* Theme-image toggle — pure CSS, zero JS lag/leakage */
+.theme-img-light { display: block; }
+.dark .theme-img-light,
+[data-theme="dark"] .theme-img-light { display: none !important; }
+.theme-img-dark { display: none; }
+.dark .theme-img-dark,
+[data-theme="dark"] .theme-img-dark { display: block !important; }

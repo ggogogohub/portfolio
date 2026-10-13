@@ -18,13 +18,13 @@ export default function ThemeImage({
       <img
         src={light}
         alt={alt}
-        className={`${className} block dark:hidden`}
+        className={`${className} theme-img-light`}
         loading={loading}
       />
       <img
         src={dark}
         alt={alt}
-        className={`${className} hidden dark:block`}
+        className={`${className} theme-img-dark`}
         loading={loading}
       />
     </>
