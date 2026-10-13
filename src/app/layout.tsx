@@ -65,6 +65,7 @@ export default function RootLayout({
     >
       <body
         className="bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col font-sans overflow-x-hidden"
+        suppressHydrationWarning
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}

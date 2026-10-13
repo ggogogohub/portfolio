@@ -14,7 +14,7 @@ const prefersReducedMotion = (): boolean => {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 };
 
-/* Verified evidence — do not invent */
+/* Verified evidence â€” do not invent */
 const projects = [
   {
     title: "Nextera Workforce",
@@ -49,8 +49,9 @@ const achievements = [
   { num: "03", title: "Broad computing record", body: "Strong performance across data analytics, cloud-native development, databases, networking, software process, and applied development." },
 ];
 
-/* Signature interaction — 4 steps explaining Media Gallery architecture */
+/* Signature interaction â€” 4 steps explaining Media Gallery architecture */
 export default function RootPage() {
+  const [featuredIndex, setFeaturedIndex] = useState(0);
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -71,6 +72,37 @@ export default function RootPage() {
       .fromTo(".hero-cta", { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.4");
   }, { scope: container });
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFeaturedIndex((prev) => (prev + 1) % projects.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Graceful cleanup: browser extensions inject bis_skin_checked / bis_register / __processed_* into SSR HTML.
+  // We strip them after mount so hydration never sees mismatched server/client attributes, and the DOM stays clean.
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const clean = () => {
+      document.querySelectorAll("[bis_skin_checked]").forEach((el) => el.removeAttribute("bis_skin_checked"));
+      document.querySelectorAll("[bis_register]").forEach((el) => el.removeAttribute("bis_register"));
+      document.querySelectorAll("[__processed_ac7a9726-964a-401a-9326-6b6e0855fd37__]").forEach((el) => {
+        el.getAttributeNames().forEach((name) => { if (name.startsWith("__processed_")) el.removeAttribute(name); });
+      });
+    };
+    clean();
+    const observer = new MutationObserver((mutations) => {
+      const dirty = mutations.some((m) =>
+        Array.from(m.addedNodes).some((n) =>
+          n.nodeType === 1 && n instanceof Element && (n.hasAttribute("bis_skin_checked") || n.hasAttribute("bis_register"))
+        )
+      );
+      if (dirty) clean();
+    });
+    observer.observe(document.body, { attributes: true, subtree: true, childList: true });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main ref={container} className="relative w-full bg-[var(--background)] text-[var(--foreground)]" suppressHydrationWarning>
       {/* ===== HERO ===== */}
@@ -90,10 +122,10 @@ export default function RootPage() {
         {/* Hero content: asymmetric */}
         <div className="mt-10 md:mt-14 lg:mt-20 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
           {/* Left: identity + value */}
-          <div className="lg:col-span-7 flex flex-col gap-6 md:gap-8 lg:pr-8">
+          <div className="lg:col-span-12 flex flex-col gap-6 md:gap-8 lg:pr-8">
             <div className="flex items-center gap-3 text-xs uppercase tracking-[0.15em] text-[var(--muted)]">
               <span className="inline-block w-6 h-[1px] bg-[var(--accent)]" />
-              <span>London, UK — Computing Graduate</span>
+              <span>London, UK â€” Computing Graduate</span>
             </div>
 
             <h1 className="text-[clamp(3rem,14vw,9rem)] leading-[0.88] tracking-[-0.06em] font-display text-[var(--ink)]">
@@ -121,23 +153,68 @@ export default function RootPage() {
             </div>
           </div>
 
-          {/* Featured project visual */}
-          <aside className="lg:col-span-5 lg:pl-4 lg:-mt-6" aria-label="Featured project visual">
-            <div className="card-surface p-6 md:p-8 shadow-[0_40px_120px_rgba(0,0,0,0.08)] relative overflow-hidden">
-              <div className="flex items-center gap-3 mb-5">
-                <span className="step-marker" />
-                <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">Featured system</span>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-display tracking-[-0.04em] mb-3">Media Gallery</h2>
-              <p className="text-sm md:text-base text-[var(--muted)] leading-relaxed mb-6">
-                A simple upload. A system behind it. Four steps explain the verified architecture: upload interface, Azure Blob Storage, Cosmos DB + Logic Apps, and returned preview.
-              </p>
+        </div>
+      </section>
 
-              <a href="#signature" className="inline-flex items-center gap-2 mt-5 text-sm font-medium text-[var(--accent)] hover:underline underline-offset-4">
-                See both systems &rarr;
-              </a>
+      {/* ===== FEATURED ROTATE ===== */}
+      <section id="featured-rotate" className="w-full bg-[var(--surface)] border-y border-[var(--line)]" aria-label="Featured rotating projects">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-16 py-24 md:py-32">
+          <div className="flex items-start gap-4 mb-12 md:mb-16">
+            <span className="step-marker mt-1" />
+            <div>
+              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92]">Featured work.</h2>
+              <p className="mt-3 text-base md:text-lg text-[var(--muted)] max-w-lg">Three verified systems, rotating in sequence. Each card links to its verified repository.</p>
             </div>
-          </aside>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div className="lg:col-span-7 relative min-h-[420px] md:min-h-[460px]">
+              {projects.map((p, i) => (
+                <div key={p.title} className={"card-surface p-6 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] " + (i === featuredIndex ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 absolute")}>
+                  <div className="flex items-center gap-2 mb-5 text-[11px] uppercase tracking-[0.15em] text-[var(--accent)] font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+                    <span>{p.tag}</span>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-display tracking-[-0.03em] mb-3">{p.title}</h3>
+                  <p className="text-sm md:text-base text-[var(--muted)] leading-relaxed mb-6">{p.summary}</p>
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {p.tech.map(t => <span key={t} className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-[var(--panel-strong)] text-[var(--muted)] border border-[var(--line)]">{t}</span>)}
+                  </div>
+                  <a href={p.repo} className="text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)]" rel="noopener noreferrer">View repository -&gt;</a>
+                </div>
+              ))}
+            </div>
+
+            <aside className="lg:col-span-5 lg:pl-4" aria-label="Verified architecture diagram">
+              <div className="card-surface p-6 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+                <h3 className="text-sm uppercase tracking-[0.15em] text-[var(--muted)] mb-6 font-medium">Verified architecture</h3>
+                <svg viewBox="0 0 320 280" className="w-full h-auto" aria-label="Four-step architecture flow" role="img">
+                  <line x1="160" y1="60" x2="160" y2="110" stroke="var(--accent)" strokeWidth="1.5" />
+                  <line x1="160" y1="160" x2="160" y2="210" stroke="var(--accent)" strokeWidth="1.5" />
+                  <line x1="160" y1="230" x2="160" y2="260" stroke="var(--accent)" strokeWidth="1.5" />
+                  <polygon points="156,105 164,105 160,115" fill="var(--accent)" />
+                  <polygon points="156,205 164,205 160,215" fill="var(--accent)" />
+                  <polygon points="156,255 164,255 160,265" fill="var(--accent)" />
+                  <circle cx="160" cy="45" r="14" fill="var(--accent)" opacity="0.15" stroke="var(--accent)" strokeWidth="1" />
+                  <text x="160" y="49" textAnchor="middle" fontSize="10" fill="var(--ink)" fontWeight="600">1</text>
+                  <text x="200" y="40" fontSize="11" fill="var(--ink)" fontWeight="500">Upload Interface</text>
+                  <text x="200" y="56" fontSize="10" fill="var(--muted)">React + TypeScript</text>
+                  <circle cx="160" cy="125" r="14" fill="var(--accent)" opacity="0.15" stroke="var(--accent)" strokeWidth="1" />
+                  <text x="160" y="129" textAnchor="middle" fontSize="10" fill="var(--ink)" fontWeight="600">2</text>
+                  <text x="200" y="120" fontSize="11" fill="var(--ink)" fontWeight="500">Azure Blob Storage</text>
+                  <text x="200" y="136" fontSize="10" fill="var(--muted)">Cloud-native storage</text>
+                  <circle cx="160" cy="185" r="14" fill="var(--accent)" opacity="0.15" stroke="var(--accent)" strokeWidth="1" />
+                  <text x="160" y="189" textAnchor="middle" fontSize="10" fill="var(--ink)" fontWeight="600">3</text>
+                  <text x="200" y="180" fontSize="11" fill="var(--ink)" fontWeight="500">Cosmos DB + Logic Apps</text>
+                  <text x="200" y="196" fontSize="10" fill="var(--muted)">REST + orchestration</text>
+                  <circle cx="160" cy="245" r="14" fill="var(--accent)" opacity="0.15" stroke="var(--accent)" strokeWidth="1" />
+                  <text x="160" y="249" textAnchor="middle" fontSize="10" fill="var(--ink)" fontWeight="600">4</text>
+                  <text x="200" y="240" fontSize="11" fill="var(--ink)" fontWeight="500">Preview / Return</text>
+                  <text x="200" y="256" fontSize="10" fill="var(--muted)">Verified output</text>
+                </svg>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
 
@@ -167,7 +244,7 @@ export default function RootPage() {
                   ))}
                 </div>
                 <div className="mt-auto pt-4 border-t border-[var(--line)] flex items-center justify-between gap-3">
-                  <a href={p.repo} className="text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)]" rel="noopener noreferrer">View repository →</a>
+                  <a href={p.repo} className="text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)]" rel="noopener noreferrer">View repository â†’</a>
                   <span className="text-[11px] text-[var(--muted)]">{p.note}</span>
                 </div>
               </article>
@@ -177,7 +254,6 @@ export default function RootPage() {
       </section>
 
 
-      {/* ===== ABOUT + EVIDENCE ===== */}
       <section id="about" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28 bg-[var(--surface)] border-y border-[var(--line)]">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           <div className="lg:col-span-5">
@@ -186,8 +262,8 @@ export default function RootPage() {
               <h2 className="text-4xl md:text-5xl font-display tracking-[-0.05em] leading-[0.92]">About.</h2>
             </div>
             <div className="space-y-5 text-base md:text-lg leading-relaxed text-[var(--ink)]">
-              <p>Sonu Thakur — First-Class BSc (Hons) Computing Systems graduate from the University of Ulster, London. Paul Hanna Award recipient.</p>
-              <p>Primary focus: full-stack and cloud-native development with practical AI-assisted workflows. Not interested in decorative dashboards — interested in systems that can be explained under pressure.</p>
+              <p>Sonu Thakur â€” First-Class BSc (Hons) Computing Systems graduate from the University of Ulster, London. Paul Hanna Award recipient.</p>
+              <p>Primary focus: full-stack and cloud-native development with practical AI-assisted workflows. Not interested in decorative dashboards â€” interested in systems that can be explained under pressure.</p>
               <p>Based in London, UK. Seeking graduate, junior and internship technology opportunities.</p>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -233,15 +309,15 @@ export default function RootPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              { title: "Cloud-native development", body: "Azure Blob Storage, Cosmos DB, Docker, Logic Apps — evidenced through Media Gallery architecture.", link: "https://github.com/ggogogohub/Media-Gallery" },
-              { title: "Full-stack engineering", body: "React / TypeScript / FastAPI / Flask / MongoDB / Angular 17 — used across Nextera and eBay Used Cars.", link: "https://github.com/ggogogohub/nextera-workforce.co.uk" },
-              { title: "Data & analytics", body: "Data Analytics (84), Cloud Native Development (78), Database Systems (78) — verified module scores.", link: "#about" },
-              { title: "Systems security awareness", body: "JWT authentication, structured inventory workflows, documented technical decisions — not decorative claims.", link: "https://github.com/ggogogohub/eBay-Used-Cars" },
+              { title: "Cloud-native development", body: "Azure Blob Storage, Cosmos DB, Docker, Logic Apps â€” evidenced through Media Gallery architecture.", link: "https://github.com/ggogogohub/Media-Gallery" },
+              { title: "Full-stack engineering", body: "React / TypeScript / FastAPI / Flask / MongoDB / Angular 17 â€” used across Nextera and eBay Used Cars.", link: "https://github.com/ggogogohub/nextera-workforce.co.uk" },
+              { title: "Data & analytics", body: "Data Analytics (84), Cloud Native Development (78), Database Systems (78) â€” verified module scores.", link: "#about" },
+              { title: "Systems security awareness", body: "JWT authentication, structured inventory workflows, documented technical decisions â€” not decorative claims.", link: "https://github.com/ggogogohub/eBay-Used-Cars" },
             ].map((cap) => (
               <a key={cap.title} href={cap.link} className="group card-surface p-6 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition border-transparent hover:border-[var(--accent-soft)]">
                 <h3 className="text-xl md:text-2xl font-display tracking-[-0.03em] mb-3 group-hover:text-[var(--accent)] transition-colors">{cap.title}</h3>
                 <p className="text-sm md:text-base text-[var(--muted)] leading-relaxed mb-4">{cap.body}</p>
-                <span className="text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] group-hover:decoration-[var(--accent)]">Evidence →</span>
+                <span className="text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] group-hover:decoration-[var(--accent)]">Evidence â†’</span>
               </a>
             ))}
           </div>
@@ -295,8 +371,8 @@ export default function RootPage() {
 
       {/* ===== FOOTER ===== */}
       <footer className="relative z-10 px-6 md:px-12 lg:px-16 py-8 text-[11px] text-[var(--muted)] flex flex-col md:flex-row items-start md:items-center justify-between gap-3" aria-label="Footer">
-        <span>Sonu Thakur — Computing Graduate, London</span>
-        <span className="text-[10px] opacity-60">Portfolio — 2026</span>
+        <span>Sonu Thakur â€” Computing Graduate, London</span>
+        <span className="text-[10px] opacity-60">Portfolio â€” 2026</span>
       </footer>
     </main>
   );
