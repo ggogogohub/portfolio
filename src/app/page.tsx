@@ -200,7 +200,7 @@ export default function RootPage() {
                   </div>
                   <div className="md:col-span-5 relative">
                     <a href={p.repo} className="block overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_50px_rgba(0,0,0,0.10)] transition ring-1 ring-[var(--line)] ring-offset-2 ring-offset-[var(--background)]" rel="noopener noreferrer">
-                      <img src={img} alt={p.title + " project preview"} className="w-full h-auto object-cover aspect-[4/3] scale-100 group-hover:scale-[1.03] transition-transform duration-700 ease-out" loading={i === 0 ? "eager" : "lazy"} />
+                      <img src={img} alt={p.title + " project preview"} className="w-full h-auto object-contain scale-100 group-hover:scale-[1.03] transition-transform duration-700 ease-out" loading={i === 0 ? "eager" : "lazy"} />
                     </a>
                   </div>
                 </article>
