@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -51,7 +51,6 @@ const achievements = [
 
 /* Signature interaction â€” 4 steps explaining Media Gallery architecture */
 export default function RootPage() {
-  const [featuredIndex, setFeaturedIndex] = useState(0);
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -71,13 +70,6 @@ export default function RootPage() {
       .fromTo(".hero-sub", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.5")
       .fromTo(".hero-cta", { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.4");
   }, { scope: container });
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFeaturedIndex((prev) => (prev + 1) % projects.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
 
   // Graceful cleanup: browser extensions inject bis_skin_checked / bis_register / __processed_* into SSR HTML.
   // We strip them after mount so hydration never sees mismatched server/client attributes, and the DOM stays clean.
@@ -120,9 +112,9 @@ export default function RootPage() {
         </nav>
 
         {/* Hero content: asymmetric */}
-        <div className="mt-10 md:mt-14 lg:mt-20 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
+        <div className="mt-10 md:mt-14 lg:mt-20 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left: identity + value */}
-          <div className="lg:col-span-12 flex flex-col gap-6 md:gap-8 lg:pr-8">
+          <div className="lg:col-span-7 flex flex-col gap-6 md:gap-8 lg:pr-8">
             <div className="flex items-center gap-3 text-xs uppercase tracking-[0.15em] text-[var(--muted)]">
               <span className="inline-block w-6 h-[1px] bg-[var(--accent)]" />
               <span>London, UK â€” Computing Graduate</span>
@@ -153,105 +145,71 @@ export default function RootPage() {
             </div>
           </div>
 
-        </div>
-      </section>
-
-      {/* ===== FEATURED ROTATE ===== */}
-      <section id="featured-rotate" className="w-full bg-[var(--surface)] border-y border-[var(--line)]" aria-label="Featured rotating projects">
-        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-16 py-24 md:py-32">
-          <div className="flex items-start gap-4 mb-12 md:mb-16">
-            <span className="step-marker mt-1" />
-            <div>
-              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92]">Featured work.</h2>
-              <p className="mt-3 text-base md:text-lg text-[var(--muted)] max-w-lg">Three verified systems, rotating in sequence. Each card links to its verified repository.</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            <div className="lg:col-span-7 relative min-h-[420px] md:min-h-[460px]">
-              {projects.map((p, i) => (
-                <div key={p.title} className={"card-surface p-6 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] " + (i === featuredIndex ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 absolute")}>
-                  <div className="flex items-center gap-2 mb-5 text-[11px] uppercase tracking-[0.15em] text-[var(--accent)] font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                    <span>{p.tag}</span>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-display tracking-[-0.03em] mb-3">{p.title}</h3>
-                  <p className="text-sm md:text-base text-[var(--muted)] leading-relaxed mb-6">{p.summary}</p>
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {p.tech.map(t => <span key={t} className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-[var(--panel-strong)] text-[var(--muted)] border border-[var(--line)]">{t}</span>)}
-                  </div>
-                  <a href={p.repo} className="text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)]" rel="noopener noreferrer">View repository -&gt;</a>
-                </div>
-              ))}
-            </div>
-
-            <aside className="lg:col-span-5 lg:pl-4" aria-label="Verified architecture diagram">
-              <div className="card-surface p-6 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
-                <h3 className="text-sm uppercase tracking-[0.15em] text-[var(--muted)] mb-6 font-medium">Verified architecture</h3>
-                <svg viewBox="0 0 320 280" className="w-full h-auto" aria-label="Four-step architecture flow" role="img">
-                  <line x1="160" y1="60" x2="160" y2="110" stroke="var(--accent)" strokeWidth="1.5" />
-                  <line x1="160" y1="160" x2="160" y2="210" stroke="var(--accent)" strokeWidth="1.5" />
-                  <line x1="160" y1="230" x2="160" y2="260" stroke="var(--accent)" strokeWidth="1.5" />
-                  <polygon points="156,105 164,105 160,115" fill="var(--accent)" />
-                  <polygon points="156,205 164,205 160,215" fill="var(--accent)" />
-                  <polygon points="156,255 164,255 160,265" fill="var(--accent)" />
-                  <circle cx="160" cy="45" r="14" fill="var(--accent)" opacity="0.15" stroke="var(--accent)" strokeWidth="1" />
-                  <text x="160" y="49" textAnchor="middle" fontSize="10" fill="var(--ink)" fontWeight="600">1</text>
-                  <text x="200" y="40" fontSize="11" fill="var(--ink)" fontWeight="500">Upload Interface</text>
-                  <text x="200" y="56" fontSize="10" fill="var(--muted)">React + TypeScript</text>
-                  <circle cx="160" cy="125" r="14" fill="var(--accent)" opacity="0.15" stroke="var(--accent)" strokeWidth="1" />
-                  <text x="160" y="129" textAnchor="middle" fontSize="10" fill="var(--ink)" fontWeight="600">2</text>
-                  <text x="200" y="120" fontSize="11" fill="var(--ink)" fontWeight="500">Azure Blob Storage</text>
-                  <text x="200" y="136" fontSize="10" fill="var(--muted)">Cloud-native storage</text>
-                  <circle cx="160" cy="185" r="14" fill="var(--accent)" opacity="0.15" stroke="var(--accent)" strokeWidth="1" />
-                  <text x="160" y="189" textAnchor="middle" fontSize="10" fill="var(--ink)" fontWeight="600">3</text>
-                  <text x="200" y="180" fontSize="11" fill="var(--ink)" fontWeight="500">Cosmos DB + Logic Apps</text>
-                  <text x="200" y="196" fontSize="10" fill="var(--muted)">REST + orchestration</text>
-                  <circle cx="160" cy="245" r="14" fill="var(--accent)" opacity="0.15" stroke="var(--accent)" strokeWidth="1" />
-                  <text x="160" y="249" textAnchor="middle" fontSize="10" fill="var(--ink)" fontWeight="600">4</text>
-                  <text x="200" y="240" fontSize="11" fill="var(--ink)" fontWeight="500">Preview / Return</text>
-                  <text x="200" y="256" fontSize="10" fill="var(--muted)">Verified output</text>
-                </svg>
+          {/* Right: Pinned Upcoming Project */}
+          <aside className="lg:col-span-5 flex flex-col" aria-label="Pinned upcoming project">
+            <div className="sticky top-24 card-surface p-8 md:p-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-transparent hover:border-[var(--accent-soft)] transition rounded-3xl">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
+                <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)] font-medium">Pinned / Upcoming</span>
               </div>
-            </aside>
-          </div>
+              <h3 className="text-3xl md:text-4xl font-display tracking-[-0.05em] leading-[1.05] mb-3">Towndash</h3>
+              <p className="text-base md:text-lg text-[var(--muted)] leading-relaxed mb-6">
+                A verified workforce platform with scheduling, reporting and cloud-native architecture — building evidence for production-ready systems.
+              </p>
+              <a href="https://github.com/ggogogohub/towndash" className="inline-flex items-center gap-2 text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)] transition" rel="noopener noreferrer">
+                View repository &#8594;
+              </a>
+            </div>
+          </aside>
         </div>
       </section>
 
-      {/* ===== SELECTED PROJECTS ===== */}
-      <section id="work" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28 bg-[var(--surface)] border-y border-[var(--line)]">
+      {/* ===== PROJECT WORKS ===== */}
+      <section id="work" className="relative z-10 px-6 md:px-12 lg:px-16 py-24 md:py-32 bg-[var(--surface)] border-y border-[var(--line)]">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-start gap-4 mb-14 md:mb-20">
+          <div className="flex items-start gap-4 mb-16 md:mb-24">
             <span className="step-marker mt-1" />
             <div>
-              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92]">Selected work.</h2>
-              <p className="mt-3 text-base md:text-lg text-[var(--muted)] max-w-lg">Applications built around practical problems.</p>
+              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92]">Project works.</h2>
+              <p className="mt-3 text-base md:text-lg text-[var(--muted)] max-w-xl">Applications built around practical problems — each with verified evidence and a public repository.</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {projects.map((p) => (
-              <article key={p.title} className="group flex flex-col card-surface p-6 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]">
-                <div className="flex items-center gap-2 mb-4 text-[11px] uppercase tracking-[0.15em] text-[var(--accent)] font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                  <span>{p.tag}</span>
-                </div>
-                <h3 className="text-xl md:text-2xl font-display tracking-[-0.03em] mb-2 group-hover:text-[var(--accent)] transition-colors">{p.title}</h3>
-                <p className="text-sm md:text-base text-[var(--muted)] leading-relaxed mb-5">{p.summary}</p>
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {p.tech.map((t) => (
-                    <span key={t} className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-[var(--panel-strong)] text-[var(--muted)] border border-[var(--line)]">{t}</span>
-                  ))}
-                </div>
-                <div className="mt-auto pt-4 border-t border-[var(--line)] flex items-center justify-between gap-3">
-                  <a href={p.repo} className="text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)]" rel="noopener noreferrer">View repository â†’</a>
-                  <span className="text-[11px] text-[var(--muted)]">{p.note}</span>
-                </div>
-              </article>
-            ))}
+          <div className="flex flex-col gap-16 md:gap-24">
+            {projects.map((p, i) => {
+              const img = i === 0 ? "/nextera.png" : i === 1 ? "/media.png" : "/ebay.png";
+              return (
+                <article key={p.title} className="group grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+                  <div className="md:col-span-7 flex flex-col gap-5">
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs uppercase tracking-[0.15em] text-[var(--accent)] font-medium">{p.tag}</span>
+                      <span className="w-8 h-[1px] bg-[var(--line)]" />
+                      <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">Verified</span>
+                    </div>
+                    <h3 className="text-3xl md:text-4xl lg:text-[2.75rem] font-display tracking-[-0.05em] leading-[1.05] text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors">{p.title}</h3>
+                    <p className="text-base md:text-lg text-[var(--muted)] leading-relaxed max-w-lg">{p.summary}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {p.tech.map((t) => (
+                        <span key={t} className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-[var(--panel-strong)] text-[var(--muted)] border border-[var(--line)]">{t}</span>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-6 pt-2">
+                      <a href={p.repo} className="inline-flex items-center gap-2 text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)] transition" rel="noopener noreferrer">Repository &rarr;</a>
+                      <span className="text-[11px] text-[var(--muted)]">{p.note}</span>
+                    </div>
+                  </div>
+                  <div className="md:col-span-5 relative">
+                    <a href={p.repo} className="block overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_50px_rgba(0,0,0,0.10)] transition ring-1 ring-[var(--line)] ring-offset-2 ring-offset-[var(--background)]" rel="noopener noreferrer">
+                      <img src={img} alt={p.title + " project preview"} className="w-full h-auto object-cover aspect-[4/3] scale-100 group-hover:scale-[1.03] transition-transform duration-700 ease-out" loading={i === 0 ? "eager" : "lazy"} />
+                    </a>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
+
 
 
       <section id="about" className="relative z-10 px-6 md:px-12 lg:px-16 py-20 md:py-28 bg-[var(--surface)] border-y border-[var(--line)]">
