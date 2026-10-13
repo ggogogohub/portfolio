@@ -178,7 +178,6 @@ export default function RootPage() {
 
           <div className="flex flex-col gap-16 md:gap-24">
             {projects.map((p, i) => {
-              const img = i === 0 ? "/nextera.png" : i === 1 ? "/media.png" : "/ebay.png";
               return (
                 <article key={p.title} className="group grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
                   <div className="md:col-span-7 flex flex-col gap-5">
@@ -201,17 +200,13 @@ export default function RootPage() {
                   </div>
                   <div className="md:col-span-5 relative">
                     <a href={p.repo} className="block overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_50px_rgba(0,0,0,0.10)] transition ring-1 ring-[var(--line)] ring-offset-2 ring-offset-[var(--background)]" rel="noopener noreferrer">
-                      {i === 0 ? (
-                        <ThemeImage
-                          light="/nextera.png"
-                          dark="/nextera-dark.png"
-                          alt={p.title + " project preview"}
-                          className="w-full h-auto object-contain scale-100 group-hover:scale-[1.03] transition-transform duration-700 ease-out"
-                          loading="eager"
-                        />
-                      ) : (
-                        <img src={img} alt={p.title + " project preview"} className="w-full h-auto object-contain scale-100 group-hover:scale-[1.03] transition-transform duration-700 ease-out" loading={i === 0 ? "eager" : "lazy"} />
-                      )}
+                      <ThemeImage
+                        light={i === 0 ? "/nextera.png" : i === 1 ? "/media.png" : "/ebay.png"}
+                        dark={i === 0 ? "/nextera-dark.png" : i === 1 ? "/media-dark.png" : "/ebay-dark.png"}
+                        alt={p.title + " project preview"}
+                        className="w-full h-auto object-contain scale-100 group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+                        loading={i === 0 ? "eager" : "lazy"}
+                      />
                     </a>
                   </div>
                 </article>
