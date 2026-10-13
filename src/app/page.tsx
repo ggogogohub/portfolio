@@ -102,9 +102,8 @@ export default function RootPage() {
       <section className="relative z-10 min-h-[92svh] md:min-h-[100svh] w-full px-6 md:px-12 lg:px-16 pt-10 md:pt-12 pb-16 md:pb-24 flex flex-col">
         {/* Nav */}
         <nav className="flex items-center justify-between gap-4 text-[11px] md:text-xs uppercase tracking-[0.15em] text-[var(--muted)]" aria-label="Primary">
-          <a href="/" className="flex items-center gap-3 shrink-0 group" aria-label="Sonu Thakur home">
-            <img src="/icon.gif" alt="Sonu Thakur" className="w-10 h-10 md:w-11 md:h-11 rounded-full object-cover ring-2 ring-[var(--line)] group-hover:ring-[var(--accent)] transition shadow-sm" loading="eager" />
-            <span className="hidden sm:inline text-xs font-display tracking-tight text-[var(--ink)] group-hover:text-[var(--accent)] transition">Sonu Thakur</span>
+          <a href="/" className="flex items-center shrink-0 group" aria-label="Sonu Thakur home">
+            <img src="/icon.gif" alt="Sonu Thakur" className="w-10 h-10 md:w-11 md:h-11 rounded-full object-cover transition" loading="eager" />
           </a>
           <div className="flex items-center gap-6 md:gap-8">
             <a href="#work" className="hover:text-[var(--accent)] transition-colors">Work</a>
