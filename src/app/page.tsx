@@ -170,7 +170,7 @@ export default function RootPage() {
           <div className="flex items-start gap-4 mb-16 md:mb-24">
             <span className="step-marker mt-1" />
             <div>
-              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92]">Project works.</h2>
+              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92]">Project Works.</h2>
               <p className="mt-3 text-base md:text-lg text-[var(--muted)] max-w-xl">Applications built around practical problems — each with verified evidence and a public repository.</p>
             </div>
           </div>
