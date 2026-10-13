@@ -15,7 +15,7 @@ const prefersReducedMotion = (): boolean => {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 };
 
-/* Verified evidence â€” do not invent */
+/* Verified evidence — do not invent */
 const projects = [
   {
     title: "Nextera Workforce",
@@ -50,7 +50,7 @@ const achievements = [
   { num: "03", title: "Broad computing record", body: "Strong performance across data analytics, cloud-native development, databases, networking, software process, and applied development." },
 ];
 
-/* Signature interaction â€” 4 steps explaining Media Gallery architecture */
+/* Signature interaction — 4 steps explaining Media Gallery architecture */
 export default function RootPage() {
   const container = useRef<HTMLDivElement>(null);
 
@@ -118,7 +118,7 @@ export default function RootPage() {
           <div className="lg:col-span-7 flex flex-col gap-6 md:gap-8 lg:pr-8">
             <div className="flex items-center gap-3 text-xs uppercase tracking-[0.15em] text-[var(--muted)]">
               <span className="inline-block w-6 h-[1px] bg-[var(--accent)]" />
-              <span>London, UK â€” Computing Graduate</span>
+              <span>London, UK — Computing Graduate</span>
             </div>
 
             <h1 className="text-[clamp(3rem,14vw,9rem)] leading-[0.88] tracking-[-0.06em] font-display text-[var(--ink)]">
@@ -226,8 +226,8 @@ export default function RootPage() {
               <h2 className="text-4xl md:text-5xl font-display tracking-[-0.05em] leading-[0.92]">About.</h2>
             </div>
             <div className="space-y-5 text-base md:text-lg leading-relaxed text-[var(--ink)]">
-              <p>Sonu Thakur â€” First-Class BSc (Hons) Computing Systems graduate from the University of Ulster, London. Paul Hanna Award recipient.</p>
-              <p>Primary focus: full-stack and cloud-native development with practical AI-assisted workflows. Not interested in decorative dashboards â€” interested in systems that can be explained under pressure.</p>
+              <p>Sonu Thakur — First-Class BSc (Hons) Computing Systems graduate from the University of Ulster, London. Paul Hanna Award recipient.</p>
+              <p>Primary focus: full-stack and cloud-native development with practical AI-assisted workflows. Not interested in decorative dashboards — interested in systems that can be explained under pressure.</p>
               <p>Based in London, UK. Seeking graduate, junior and internship technology opportunities.</p>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -273,15 +273,15 @@ export default function RootPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              { title: "Cloud-native development", body: "Azure Blob Storage, Cosmos DB, Docker, Logic Apps â€” evidenced through Media Gallery architecture.", link: "https://github.com/ggogogohub/Media-Gallery" },
-              { title: "Full-stack engineering", body: "React / TypeScript / FastAPI / Flask / MongoDB / Angular 17 â€” used across Nextera and eBay Used Cars.", link: "https://github.com/ggogogohub/nextera-workforce.co.uk" },
-              { title: "Data & analytics", body: "Data Analytics (84), Cloud Native Development (78), Database Systems (78) â€” verified module scores.", link: "#about" },
-              { title: "Systems security awareness", body: "JWT authentication, structured inventory workflows, documented technical decisions â€” not decorative claims.", link: "https://github.com/ggogogohub/eBay-Used-Cars" },
+              { title: "Cloud-native development", body: "Azure Blob Storage, Cosmos DB, Docker, Logic Apps — evidenced through Media Gallery architecture.", link: "https://github.com/ggogogohub/Media-Gallery" },
+              { title: "Full-stack engineering", body: "React / TypeScript / FastAPI / Flask / MongoDB / Angular 17 — used across Nextera and eBay Used Cars.", link: "https://github.com/ggogogohub/nextera-workforce.co.uk" },
+              { title: "Data & analytics", body: "Data Analytics (84), Cloud Native Development (78), Database Systems (78) — verified module scores.", link: "#about" },
+              { title: "Systems security awareness", body: "JWT authentication, structured inventory workflows, documented technical decisions — not decorative claims.", link: "https://github.com/ggogogohub/eBay-Used-Cars" },
             ].map((cap) => (
               <a key={cap.title} href={cap.link} className="group card-surface p-6 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition border-transparent hover:border-[var(--accent-soft)]">
                 <h3 className="text-xl md:text-2xl font-display tracking-[-0.03em] mb-3 group-hover:text-[var(--accent)] transition-colors">{cap.title}</h3>
                 <p className="text-sm md:text-base text-[var(--muted)] leading-relaxed mb-4">{cap.body}</p>
-                <span className="text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] group-hover:decoration-[var(--accent)]">Evidence â†’</span>
+                <span className="text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] group-hover:decoration-[var(--accent)]">Evidence →</span>
               </a>
             ))}
           </div>
@@ -335,8 +335,8 @@ export default function RootPage() {
 
       {/* ===== FOOTER ===== */}
       <footer className="relative z-10 px-6 md:px-12 lg:px-16 py-8 text-[11px] text-[var(--muted)] flex flex-col md:flex-row items-start md:items-center justify-between gap-3" aria-label="Footer">
-        <span>Sonu Thakur â€” Computing Graduate, London</span>
-        <span className="text-[10px] opacity-60">Portfolio â€” 2026</span>
+        <span>Sonu Thakur — Computing Graduate, London</span>
+        <span className="text-[10px] opacity-60">Portfolio — 2026</span>
       </footer>
     </main>
   );
