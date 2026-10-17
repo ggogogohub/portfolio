@@ -335,12 +335,6 @@ export default function RootPage() {
           </div>
         </div>
       </section>
-
-      {/* ===== FOOTER ===== */}
-      <footer className="relative z-10 px-6 md:px-12 lg:px-16 py-8 text-[11px] text-[var(--muted)] flex flex-col md:flex-row items-start md:items-center justify-between gap-3" aria-label="Footer">
-        <span>Sonu Thakur — Computing Graduate, London</span>
-        <span className="font-script text-sm text-[var(--accent)]">Crafted with care — 2026</span>
-      </footer>
     </main>
   );
 }
