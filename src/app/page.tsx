@@ -148,7 +148,7 @@ export default function RootPage() {
 
           {/* Right: Pinned Upcoming Project */}
           <aside className="lg:col-span-5 flex flex-col" aria-label="Pinned upcoming project">
-            <div className="sticky top-24 card-surface p-8 md:p-10 shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-transparent hover:border-[var(--accent-soft)] transition rounded-3xl">
+            <div className="towndash-card sticky top-24 card-surface p-6 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-transparent hover:border-[var(--accent-soft)] transition rounded-3xl">
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
                 <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)] font-medium">Pinned / Upcoming</span>

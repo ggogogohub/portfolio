@@ -120,45 +120,81 @@ h1, h2, h3, h4, h5, h6 {
   --button-primary-text: #121211;
 }
 
-/* TownDash preview — a quiet 3D device treatment for the pinned project */
+/* TownDash preview — compact 3D device treatment for the pinned project */
 .towndash-showcase {
+  position: relative;
   display: flex;
   justify-content: center;
+  height: clamp(9.25rem, 28vw, 11rem);
+  margin: 0 -0.25rem 1.25rem;
   overflow: hidden;
-  padding: 0.4rem 0 1.35rem;
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  background: radial-gradient(circle at 50% 18%, rgba(138, 160, 122, 0.18), transparent 58%), var(--panel);
   perspective: 900px;
+}
+
+.towndash-showcase::after {
+  content: "";
+  position: absolute;
+  right: 12%;
+  bottom: 0.75rem;
+  left: 12%;
+  height: 1rem;
+  border-radius: 50%;
+  background: rgba(18, 18, 17, 0.18);
+  filter: blur(0.7rem);
 }
 
 .towndash-device {
   position: relative;
-  width: clamp(7.4rem, 42%, 9.4rem);
+  z-index: 1;
+  width: clamp(6.5rem, 32%, 8rem);
   aspect-ratio: 390 / 844;
-  padding: 0.34rem;
-  border: 1px solid rgba(240, 237, 230, 0.22);
-  border-radius: 1.55rem;
-  background: linear-gradient(145deg, #28342d 0%, #101512 72%);
-  box-shadow: -0.55rem 0.75rem 0 -0.08rem rgba(18, 18, 17, 0.2), -1.1rem 1.25rem 2rem rgba(18, 18, 17, 0.16), 0 1.25rem 2.25rem rgba(18, 18, 17, 0.18);
+  align-self: flex-start;
+  margin-top: -1.8rem;
+  padding: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 1.4rem;
+  background: linear-gradient(145deg, #68776d 0%, #26352c 20%, #0b100d 70%);
+  box-shadow: -0.42rem 0.5rem 0 -0.08rem #17221b, -0.8rem 0.9rem 1.5rem rgba(18, 18, 17, 0.2), 0 1rem 1.75rem rgba(18, 18, 17, 0.16);
   transform: rotateY(-13deg) rotateX(4deg) rotateZ(1deg);
   transform-style: preserve-3d;
 }
 
-.towndash-device::before {
+.towndash-device::before,
+.towndash-device::after {
   content: "";
   position: absolute;
   z-index: -1;
-  inset: 0.55rem auto 0.55rem -0.38rem;
-  width: 0.42rem;
-  border-radius: 0.7rem 0 0 0.7rem;
-  background: linear-gradient(180deg, #405046, #18211c 65%, #0d110f);
+  border-radius: 9999px;
+  background: #b4c1b7;
+  box-shadow: 0 0 0 1px rgba(18, 18, 17, 0.45);
+}
+
+.towndash-device::before {
+  top: 1.8rem;
+  left: -0.16rem;
+  width: 0.16rem;
+  height: 1.25rem;
+  transform: translateZ(-0.2rem);
+}
+
+.towndash-device::after {
+  top: 2.6rem;
+  right: -0.16rem;
+  width: 0.16rem;
+  height: 1.7rem;
   transform: translateZ(-0.2rem);
 }
 
 .towndash-device-screen {
   height: 100%;
   overflow: hidden;
-  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 1.12rem;
   background: #086b4b;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(18, 18, 17, 0.26), inset 0 0 1rem rgba(0, 0, 0, 0.18);
 }
 
 .towndash-preview-image {
@@ -166,6 +202,12 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+@media (max-width: 639px) {
+  .towndash-showcase {
+    height: 9.5rem;
+  }
 }
 
 /* Card surface — solid, not glass */
