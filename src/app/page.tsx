@@ -153,25 +153,29 @@ export default function RootPage() {
                 <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
                 <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)] font-medium">Pinned / Upcoming</span>
               </div>
-              <div className="towndash-showcase" aria-label="TownDash app preview">
-                <div className="towndash-device">
-                  <div className="towndash-device-screen">
-                    <img
-                      src="/towndash-web-home.png"
-                      alt="TownDash 15-minute express delivery app preview"
-                      className="towndash-preview-image"
-                      loading="eager"
-                    />
+              <div className="towndash-card-content">
+                <div className="towndash-details">
+                  <h3 className="text-3xl md:text-4xl font-display tracking-[-0.05em] leading-[1.05] mb-3">TownDash</h3>
+                  <p className="text-base md:text-lg text-[var(--muted)] leading-relaxed mb-6">
+                    A hyperlocal super-app unifying grocery, pharmacy and courier delivery across UK towns — one elegant platform built for speed, affordability, sustainability and community.
+                  </p>
+                  <a href="https://github.com/ggogogohub/towndash" className="inline-flex items-center gap-2 text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)] transition" rel="noopener noreferrer">
+                    View repository &#8594;
+                  </a>
+                </div>
+                <div className="towndash-showcase" aria-label="TownDash app preview">
+                  <div className="towndash-device">
+                    <div className="towndash-device-screen">
+                      <img
+                        src="/towndash-web-home.png"
+                        alt="TownDash 15-minute express delivery app preview"
+                        className="towndash-preview-image"
+                        loading="eager"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-              <h3 className="text-3xl md:text-4xl font-display tracking-[-0.05em] leading-[1.05] mb-3">TownDash</h3>
-              <p className="text-base md:text-lg text-[var(--muted)] leading-relaxed mb-6">
-                A hyperlocal super-app unifying grocery, pharmacy and courier delivery across UK towns — one elegant platform built for speed, affordability, sustainability and community.
-              </p>
-              <a href="https://github.com/ggogogohub/towndash" className="inline-flex items-center gap-2 text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)] transition" rel="noopener noreferrer">
-                View repository &#8594;
-              </a>
             </div>
           </aside>
         </div>
