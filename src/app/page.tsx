@@ -338,14 +338,6 @@ export default function RootPage() {
               </a>
             </div>
           </div>
-          <div className="mt-10 pt-8 border-t border-[var(--line)] flex flex-col md:flex-row md:items-center justify-between gap-4 text-sm text-[var(--muted)]">
-            <span className="font-display text-lg text-[var(--ink)]">Let's build something that matters.</span>
-            <div className="flex gap-3">
-              <a href="mailto:badshasonu020@gmail.com" className="underline underline-offset-4 hover:text-[var(--accent)] transition">Email</a>
-              <a href="https://github.com/ggogogohub" className="underline underline-offset-4 hover:text-[var(--accent)] transition" rel="noopener noreferrer">GitHub</a>
-              <a href="https://linkedin.com/in/thakur-sonu" className="underline underline-offset-4 hover:text-[var(--accent)] transition" rel="noopener noreferrer">LinkedIn</a>
-            </div>
-          </div>
         </div>
       </section>
     </main>
