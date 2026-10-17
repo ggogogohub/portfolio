@@ -214,15 +214,18 @@ export default function RootPage() {
                       <span className="text-[11px] text-[var(--muted)]">{p.note}</span>
                     </div>
                   </div>
-                  <div className="md:col-span-5 relative">
-                    <a href={p.repo} className="block overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_50px_rgba(0,0,0,0.10)] transition ring-1 ring-[var(--line)] ring-offset-2 ring-offset-[var(--background)]" rel="noopener noreferrer">
-                      <ThemeImage
-                        light={i === 0 ? "/nextera.png" : i === 1 ? "/media.png" : "/ebay.png"}
-                        dark={i === 0 ? "/nextera-dark.png" : i === 1 ? "/media-dark.png" : "/ebay-dark.png"}
-                        alt={p.title + " project preview"}
-                        className="w-full h-auto object-contain scale-100 group-hover:scale-[1.03] transition-transform duration-700 ease-out"
-                        loading={i === 0 ? "eager" : "lazy"}
-                      />
+                  <div className={`md:col-span-5 relative ${i === 0 ? "nextera-visual" : ""}`}>
+                    <a href={p.repo} className={i === 0 ? "nextera-visual-link" : "block overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_50px_rgba(0,0,0,0.10)] transition ring-1 ring-[var(--line)] ring-offset-2 ring-offset-[var(--background)]"} rel="noopener noreferrer">
+                      {i === 0 && <span className="nextera-visual-glow" aria-hidden="true" />}
+                      <span className={i === 0 ? "nextera-visual-frame" : "block overflow-hidden rounded-2xl"}>
+                        <ThemeImage
+                          light={i === 0 ? "/nextera.png" : i === 1 ? "/media.png" : "/ebay.png"}
+                          dark={i === 0 ? "/nextera-dark.png" : i === 1 ? "/media-dark.png" : "/ebay-dark.png"}
+                          alt={p.title + " project preview"}
+                          className={i === 0 ? "nextera-visual-image" : "w-full h-auto object-contain scale-100 group-hover:scale-[1.03] transition-transform duration-700 ease-out"}
+                          loading={i === 0 ? "eager" : "lazy"}
+                        />
+                      </span>
                     </a>
                   </div>
                 </article>
