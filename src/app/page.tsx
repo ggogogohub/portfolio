@@ -132,7 +132,7 @@ export default function RootPage() {
             <div className="max-w-xl">
               <p className="hero-sub text-2xl md:text-[1.75rem] lg:text-[2rem] leading-snug text-[var(--ink)] font-light tracking-[-0.02em]">
                 Complex problems.<br />
-                <span className="text-[var(--muted)] font-normal">Clear systems.</span>
+                <span className="font-script font-normal text-[var(--accent)]">Clear systems.</span>
               </p>
               <p className="hero-sub mt-3 text-base md:text-lg text-[var(--muted)] leading-relaxed max-w-md">
                 I build full-stack and cloud-native software with practical workflows and clear technical decisions.
@@ -296,7 +296,7 @@ export default function RootPage() {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <div>
-              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92] mb-6">Let's build clearly.</h2>
+              <h2 className="text-4xl md:text-6xl font-display tracking-[-0.05em] leading-[0.92] mb-6">Let's build <span className="font-script text-[1.22em] text-[var(--accent)]">clearly.</span></h2>
               <p className="text-lg md:text-xl text-[var(--muted)] leading-relaxed max-w-md">
                 Graduate, junior and internship roles in London and the UK. Full-stack, cloud-native, AI-assisted systems. Honest evidence over loud claims.
               </p>
@@ -339,7 +339,7 @@ export default function RootPage() {
       {/* ===== FOOTER ===== */}
       <footer className="relative z-10 px-6 md:px-12 lg:px-16 py-8 text-[11px] text-[var(--muted)] flex flex-col md:flex-row items-start md:items-center justify-between gap-3" aria-label="Footer">
         <span>Sonu Thakur — Computing Graduate, London</span>
-        <span className="text-[10px] opacity-60">Portfolio — 2026</span>
+        <span className="font-script text-sm text-[var(--accent)]">Crafted with care — 2026</span>
       </footer>
     </main>
   );

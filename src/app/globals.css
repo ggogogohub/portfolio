@@ -1,10 +1,24 @@
 @import "tailwindcss";
 
+/* Foxlite Script — hand-crafted accent (Khorasan Type, free for personal & commercial use) */
+@font-face {
+  font-family: "Foxlite Script";
+  src: url("/fonts/foxlite-script.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme {
   --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --font-display: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-script: "Foxlite Script", "Segoe Script", cursive, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+}
+
+/* Script accent — resets display tracking so hand-drawn forms keep their rhythm */
+.font-script {
+  letter-spacing: 0;
 }
 
 :root {
