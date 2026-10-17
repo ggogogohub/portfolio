@@ -153,9 +153,9 @@ export default function RootPage() {
                 <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
                 <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)] font-medium">Pinned / Upcoming</span>
               </div>
-              <h3 className="text-3xl md:text-4xl font-display tracking-[-0.05em] leading-[1.05] mb-3">Towndash</h3>
+              <h3 className="text-3xl md:text-4xl font-display tracking-[-0.05em] leading-[1.05] mb-3">TownDash</h3>
               <p className="text-base md:text-lg text-[var(--muted)] leading-relaxed mb-6">
-                A verified workforce platform with scheduling, reporting and cloud-native architecture — building evidence for production-ready systems.
+                A hyperlocal super-app unifying grocery, pharmacy and courier delivery across UK towns — one elegant platform built for speed, affordability, sustainability and community.
               </p>
               <a href="https://github.com/ggogogohub/towndash" className="inline-flex items-center gap-2 text-sm font-medium text-[var(--ink)] underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)] transition" rel="noopener noreferrer">
                 View repository &#8594;
